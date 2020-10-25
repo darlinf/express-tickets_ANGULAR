@@ -1,0 +1,64 @@
+.myStyle-container{
+    width: 100%;
+    > div{
+        height: 80vh;
+        width: 50%;
+        margin: auto;
+        > div{
+            margin: 20px 20px 20px 20px;
+            height: 100%;
+            > :nth-child(1){
+                height: 60%;
+                > p{
+                    text-align: end;
+                    margin: 5px 5px 0 0;
+                }
+            }
+            > :nth-child(2){
+                height: 40%;
+                button{
+                    width: 100%;
+                }
+                > :nth-child(1){
+                    border-bottom: none;
+                    border-radius: 5px 5px 0 0;
+                }
+                > :nth-child(2){
+                    border-radius: 0 0 5px 5px;
+                    margin-bottom: 10px;
+                }
+            }
+        }
+    }
+}  
+.method-button{ padding: 5px 0;
+    border:  rgba(128, 128, 128, 0.3) 1px solid;
+    display: flex;
+    cursor: pointer;
+    align-items: center;
+    input{
+        margin: 0 10px 0 10px;
+    }
+    i{
+        font-size: 30px;
+    }
+}
+
+.method-button:hover{
+    background-color: rgba(128, 128, 128, 0.1);
+}
+
+.myStyle-items{
+    > div{
+        padding: 10px;
+        border-bottom:  rgba(128, 128, 128, 0.3) 1px solid;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}

@@ -1,0 +1,22 @@
+@mixin buttonIcon {   
+    display: flex;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    border-radius: 100%;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    i {
+      transition: all 0.5s ease;
+      color: rgb(82, 82, 82);
+      font-size: 24px;
+    }
+}
+
+@mixin buttonIconHover {   
+    background-color: rgba(128, 128, 128, 0.329);
+    i{
+        color: #DC3545;
+    }
+}

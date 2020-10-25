@@ -1,0 +1,44 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.nav-item{
+  margin-left: 9px;
+  i{
+    font-size: 20px;
+  }
+}
+.dropdown-menu{
+  border: none;
+}
+
+.bag{
+  right: 38px;
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  color: white;
+  top: -5px;
+  font-size: 13px;
+  background-color: red;
+  border-radius: 25%;
+
+  text-align:center;
+    vertical-align:middle;
+  
+}
