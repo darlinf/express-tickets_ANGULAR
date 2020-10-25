@@ -1,4 +1,5 @@
-﻿using System;
+﻿using express_tickets.Data.Entities;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,7 +16,7 @@ namespace Atiendeme.Data.Entities
         public byte[] PasswordSalt { get; set; }
         public string Role { get; set; }
         public string Token { get; set; }
-        
-        public int Dependence { get; set; }
+
+        public List<Ticket> Tickets { get; set; }
     }
 }
