@@ -1,39 +1,8 @@
 <div class="myStyle-container-calendar">
 
-<div class="wrapper">
-  <div class="calendar">
-    <div class="month">
-      <div class="prev prevAllo" (click)="moveDate('prev')">
-        <span>&#10094;</span>
-      </div>
-      <div>
-        <h2 id="month"></h2>
-        <p id="date_str"></p>
-      </div>
-      <div class="next nextAllo" (click)="moveDate('next')">
-        <span>&#10095;</span>
-      </div>
-    </div>
-    <div class="weekdays">
-      <div>Sun</div>
-      <div>Mon</div>
-      <div>Tue</div>
-      <div>Wed</div>
-      <div>Thu</div>
-      <div>Fri</div>
-      <div>Sat</div>
-    </div>
-    <div class="days">
-      <div *ngFor="let day of day.prev_date;  let Last = last" class='prev_date'>{{day}}</div>
-      <ng-container  *ngFor="let days of day.days; let i = index" >
-        <div (click)="choiceHours(i)" [class]="day.today > days?'prev_date':'day-allowed'" [ngClass]="{'prev_date': day.today > days}">{{days}}</div>
-      </ng-container>
-    </div> 
-  </div> 
-</div>
-
 <form [formGroup]="form" (ngSubmit)="onSubmit()" >
-    <div class="form-row myStyle-form align-items-center">
+    <div class="form-row myStyle-form align-items-center card">
+      <p>Reservar ticket</p>
       <div class="col-auto my-1">
         <label class="mr-sm-2" for="inlineFormCustomSelect">Desde</label>
         <select class="custom-select mr-sm-2" (change)="changeDisabled('from','place')"  formControlName="from" id="inlineFormCustomSelect">
@@ -41,6 +10,7 @@
           <option *ngFor="let site of sites"  [ngValue]="site">{{site}}</option>
         </select>
       </div>
+
       <div class="col-auto my-1">
         <label class="mr-sm-2" for="inlineFormCustomSelect">Hasta</label>
         <select formControlName="place" (change)="changeDisabled('place','quantity')" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
@@ -50,6 +20,7 @@
           </ng-container>
         </select>
       </div>
+
       <div class="col-auto my-1">
         <label class="mr-sm-2" for="inlineFormCustomSelect">Numeros de tickets</label>
         <select formControlName="quantity" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
@@ -61,23 +32,47 @@
           <option value="5">Cinco</option>
         </select>
       </div>
+    
+    <div class="col-auto my-1 date-choice-container">
+      <label class="mr-sm-2">Elegir fecha</label>
+      <div>
+      <ul class="donate-now">
+        <ng-container *ngFor="let date of dates">
+        <li class="date-f" (click)="dateElect = date">
+          <input type="radio" [id]="date.day" name="amount" />
+          <label [for]="date.day">{{date.day}}</label>
+          <span class="date-f-tooptip">{{date.day}} {{date.month}} {{date.year}}</span>
+        </li>
+      </ng-container>
+      </ul>
+      <div>
+        Fecha: <b *ngIf="dateElect">{{dateElect.day}} {{dateElect.month}} {{dateElect.year}}</b>
+      </div>
+    </div>
     </div>
 
-    
-    <div *ngIf="showHours" class="col-auto my-1 myStyle-time">
-    <label class="mr-sm-2" for="inlineFormCustomSelect">Numeros de tickets</label>
+    <div  class="myStyle-time col-auto my-1">
+    <label class="mr-sm-2" for="inlineFormCustomSelect">Selecionar hora</label>
     <div class=" btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-info ">
-          <input type="radio" formControlName="hour" name="hour" id="option1" autocomplete="off" checked> 8:30 AM
+        <label class="btn btn-light">
+          <input type="radio" formControlName="hour" name="hour" id="option1" autocomplete="off"> 6:00 AM
         </label>
-        <label class="btn btn-info">
-          <input type="radio" formControlName="hour" name="hour" id="option2" autocomplete="off"> 12:30 PM
+        <label class="btn btn-light">
+          <input type="radio" formControlName="hour" name="hour" id="option2" autocomplete="off"> 10:00 AM
         </label>
-        <label class="btn btn-info">
-          <input type="radio" formControlName="hour" name="hour" id="option3" autocomplete="off"> 3:00 PM
+        <label class="btn btn-light">
+          <input type="radio" formControlName="hour" name="hour" id="option3" autocomplete="off"> 2:00 PM
+        </label>
+        <label class="btn btn-light">
+          <input type="radio" formControlName="hour" name="hour" id="option3" autocomplete="off"> 6:00 PM
         </label>
     </div>
-    <button class="btn btn-success" [disabled]="true" >Agregar al carito</button>
+    
+    </div>
+    <div  class="col-auto my-1 add-card">
+      <button class="btn btn-success" [disabled]="false" >Agregar al carito</button>
+    </div>
+
     </div>
   </form>
 </div>

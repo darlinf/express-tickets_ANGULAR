@@ -4,14 +4,16 @@ using Atiendeme.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace express_tickets.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201025221552_initial 3")]
+    partial class initial3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -55,27 +57,6 @@ namespace express_tickets.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("express_tickets.Data.Entities.Bus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Number")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Status")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Buses");
-                });
-
             modelBuilder.Entity("express_tickets.Data.Entities.Invoice", b =>
                 {
                     b.Property<int>("Id")
@@ -97,7 +78,7 @@ namespace express_tickets.Migrations
                     b.HasIndex("TicketId")
                         .IsUnique();
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoice");
                 });
 
             modelBuilder.Entity("express_tickets.Data.Entities.Ticket", b =>
@@ -130,11 +111,9 @@ namespace express_tickets.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BusId");
-
                     b.HasIndex("UserId");
 
-                    b.ToTable("Tickets");
+                    b.ToTable("Ticket");
                 });
 
             modelBuilder.Entity("express_tickets.Data.Entities.Invoice", b =>
@@ -148,12 +127,6 @@ namespace express_tickets.Migrations
 
             modelBuilder.Entity("express_tickets.Data.Entities.Ticket", b =>
                 {
-                    b.HasOne("express_tickets.Data.Entities.Bus", null)
-                        .WithMany("Tickets")
-                        .HasForeignKey("BusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Atiendeme.Data.Entities.User", null)
                         .WithMany("Tickets")
                         .HasForeignKey("UserId")

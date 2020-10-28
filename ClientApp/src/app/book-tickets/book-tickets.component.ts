@@ -20,7 +20,7 @@ export class BookTicketsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.renderDate();
+   // this.renderDate();
     this.form = this.formBuilder.group({
       /*from: ['', Validators.required],
       place: ['', Validators.required]*/
@@ -68,8 +68,47 @@ export class BookTicketsComponent implements OnInit {
   }
 
   isLast = false
+
+  dates =[
+    { 
+      day: "28",
+      month: "Enero",
+      year: "2020"
+    },
+    { 
+      day: "29",
+      month: "Enero",
+      year: "2020"
+    },
+    { 
+      day: "30",
+      month: "Enero",
+      year: "2020"
+    },
+    { 
+      day: "31",
+      month: "Enero",
+      year: "2020"
+    },
+    { 
+      day: "1",
+      month: "Febrero",
+      year: "2020"
+    },
+    { 
+      day: "2",
+      month: "Febrero",
+      year: "2020"
+    },
+    { 
+      day: "3",
+      month: "Febrero",
+      year: "2020"
+    },
+  ]
+  dateElect=null
   
-     renderDate() {
+   /*  renderDate() {
       this.dt.setDate(1);
         var day = this.dt.getDay();
         var today = new Date();
@@ -118,7 +157,7 @@ export class BookTicketsComponent implements OnInit {
         }
 
         //document.getElementsByClassName("days")[0].innerHTML = cells;
-    }
+    }*/
 
     day = {
       prev_date: [],
@@ -137,7 +176,7 @@ export class BookTicketsComponent implements OnInit {
         } else if(para == 'next' && this.moveDateNo == true) {this.moveDateNo = false
           this.dt.setMonth(this.dt.getMonth() + 1);
         }
-        this.renderDate()
+       // this.renderDate()
     }
 
 }

@@ -1,15 +1,39 @@
-.myStyle-container-calendar{
-    display: flex;
-}
 
-.myStyle-time > div{
-    
+.date-choice-container{
+  >div{
+    display: flex;
+    align-items: center;
+  }
+  margin-top: 20px;
+}
+.myStyle-time { 
+    > div{
     display: flex;
     justify-content: space-between;
+    }
 }
 
 
+.date-f-tooptip{padding: 5px;border-radius: 3px;
+  white-space: nowrap;
+  top: -40px;
+  left: -40px;
+  position: absolute;
+  background-color:  #2ecc71;
+  color: white;
+  visibility: hidden;
+  transition: all 0.5s ease; 
+  opacity: 0;
+}
+.date-f{
+  position: relative;
+}
 
+.date-f:hover .date-f-tooptip{
+visibility: visible;
+  opacity: 1;
+}
+  
 * {
     box-sizing: border-box;
   }
@@ -121,22 +145,78 @@
     font-weight: 500;
   }
 
-/*
-  .prev-not-allowed{
-    background-color: #2ecc71;
-    cursor: not-allowed;
-  }*/
 
-   
-    .prevAllo{ background-color: #2ecc71;
-
-}
-
-.myStyle-form > div{
-  width: 100%;
+.myStyle-form{
+  width: 520px;
+  margin: auto;
+  padding: 10px;
+  >p{
+    font-size: 24px;
+    text-align: center;
+  }
+   > div{
+    width: 100%;
+  }
 }
 
 .nextAllo{
   background-color: #2ecc71;
   cursor: not-allowed;
+}
+
+.add-card{
+  display: flex;
+  justify-content: center;
+}
+
+
+
+
+.donate-now { 
+  display: flex;
+  list-style-type: none;
+  padding: 0;
+  margin: 2px 0 0px 0;
+  label{
+    text-align: center;line-height: 38px;
+  }
+}
+
+.donate-now li { 
+  text-align: center;
+  margin: 0 5px 0 0;
+  width: 40px;
+  height: 40px;
+  position: relative;
+}
+
+.donate-now label,
+.donate-now input {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.donate-now input[type="radio"] {
+  opacity: 0.01;
+  z-index: 100;
+}
+
+.donate-now input[type="radio"]:checked+label,
+.Checked+label {
+  background: #2ecc70b4;
+  color: white;
+}
+
+.donate-now label {
+  border: 1px solid #CCC;
+  cursor: pointer;
+  z-index: 90;
+}
+
+.donate-now label:hover {
+  background: #DDD;
 }
