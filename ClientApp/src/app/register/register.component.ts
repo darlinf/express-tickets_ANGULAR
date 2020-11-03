@@ -31,10 +31,12 @@ export class RegisterComponent implements OnInit {
   } 
 
   ngOnInit() {
-      this.loginForm = this.formBuilder.group({
-          username: ['', Validators.required],
-          password: ['', Validators.required]
-      });
+    this.loginForm = this.formBuilder.group({
+        mail: ['', Validators.required],
+        password: ['', Validators.required],
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required]
+    });
 
       // get return url from route parameters or default to '/'
       this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
@@ -51,12 +53,26 @@ export class RegisterComponent implements OnInit {
           return;
       }
 
+      console.log()
+
+      
       this.loading = true;
-      this.authenticationService.login(this.f.username.value, this.f.password.value)
+      this.authenticationService.register(this.loginForm.value)
           .pipe(first())
           .subscribe(
               data => {
-                  this.router.navigate([this.returnUrl]);
+                //this.router.navigate([this.returnUrl]);
+                console.log(this.loginForm.value)
+                this.authenticationService.login(this.loginForm.value.mail, this.loginForm.value.password)
+                .pipe(first())
+                .subscribe(
+                    data => {
+                        this.router.navigate([this.returnUrl]);
+                    },
+                    error => {
+                        this.error = error;
+                        this.loading = false;
+                    });
               },
               error => {
                   this.error = error;

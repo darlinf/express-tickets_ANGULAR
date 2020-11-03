@@ -4,14 +4,14 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { User } from '../_models';
-
+import {  Inject } from "@angular/core";
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
     private currentUserSubject: BehaviorSubject<User>;
     public currentUser: Observable<User>;
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient, @Inject("BASE_URL") private baseUrl: string) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
     }
@@ -20,18 +20,15 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
 
-    login(Mail: string, Password: string) {console.log(environment.apiUrl, Mail, Password)
-        return this.http.post<any>(/*`${environment.apiUrl}/users/authenticate`*/"https://localhost:5001/users/authenticate", { Password,Mail })
+    login(Mail: string, Password: string) {
+        return this.http.post<any>(this.baseUrl + "users/authenticate", { Password,Mail })
             .pipe(map(user => { console.log(user)
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes
                     localStorage.setItem('currentUser', JSON.stringify(user));
                     this.currentUserSubject.next(user);
-
-                   
                 }
-
                 return user;
             }));
     }
@@ -41,4 +38,8 @@ export class AuthenticationService {
         localStorage.removeItem('currentUser');
         this.currentUserSubject.next(null);
     }
+
+    register(newUser: any){
+        return this.http.post<any>(this.baseUrl + 'users/register', newUser);
+    } 
 }
