@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from '../_models';
+import { TicketStatus } from '../_models/TicketStatus';
+import { AuthenticationService } from '../_services';
+import { TicketService } from '../_services/ticket.service';
 
 @Component({
   selector: 'app-my-tickets',
@@ -7,9 +11,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MyTicketsComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(
+    private authenticationService: AuthenticationService,
+    private ticketService: TicketService
+  ) { }
   ngOnInit() {
+    this.authenticationService.currentUser.subscribe(x =>{ this.currentUser = x;});
+    this.ticketService.getAllBy("paid", this.currentUser.id).subscribe(x => {this.ticketsPending = x})
+    console.log(this.currentUser.id)
   }
-
+  getTicketBy(x){
+    this.ticketService.getAllBy(x, this.currentUser.id).subscribe(x => {
+      this.ticketsPending = x
+      console.log(this.ticketsPending)})
+  }
+  currentUser: User
+  ticketsPending: any
 }

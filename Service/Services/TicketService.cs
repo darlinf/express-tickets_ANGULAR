@@ -63,14 +63,14 @@ namespace WebApi.Services
             _context.SaveChanges();
         }
 
-        public IEnumerable<Ticket> GetAll()
+        public IEnumerable<Ticket> GetAll(int Id)
         {
-            return _context.Tickets;
+            return _context.Tickets.Where(x => x.UserId == Id);
         }
 
-        public IEnumerable<Ticket> GetAllBy(string status)
+        public IEnumerable<Ticket> GetAllBy(string Status, int Id)
         {
-            return _context.Tickets.Where(x => x.Status == status);
+            return _context.Tickets.Where(x => x.Status == Status && x.UserId == Id);
         }
 
         public Ticket GetById(int id)

@@ -11,8 +11,8 @@ namespace Atiendeme.Data.Interfaces
     public interface ITicketService
     {
         void Create(Ticket newTicket);
-        IEnumerable<Ticket> GetAll();
-        IEnumerable<Ticket> GetAllBy(string status);
+        IEnumerable<Ticket> GetAll(int Id);
+        IEnumerable<Ticket> GetAllBy(string status, int Id);
         void ChangeStatus(TicketChangeStatus ticketChangeStatus);
         void Delete(int Id);
         void Edit(Ticket ticketToEdit);

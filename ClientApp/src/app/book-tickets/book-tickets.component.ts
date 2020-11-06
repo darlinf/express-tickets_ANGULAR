@@ -15,6 +15,11 @@ import {
 import {
   from
 } from 'rxjs';
+import { User } from '../_models';
+import { TicketStatus } from '../_models/TicketStatus';
+import { AuthenticationService } from '../_services';
+import { SharedService } from '../_services/shared.service';
+import { TicketService } from '../_services/ticket.service';
 
 declare const jsCalendar: any;
 
@@ -28,31 +33,14 @@ export class BookTicketsComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private route: ActivatedRoute,
-    private router: Router
-  ) {}
-
-  ngOnInit() {
-   /* this.form = this.formBuilder.group({
-      from: ['', Validators.required],
-      place: ['', Validators.required],
-      quantity: ['', Validators.required],
-      hour: ['', Validators.required],
-      code: ['', Validators.required],
-      date: [''],
-    });*/
-
-    this.form = this.formBuilder.group({
-      from: new FormControl({value: ''}, Validators.required),
-      quantity: new FormControl({value: ''}, Validators.required),
-      hour: new FormControl({value: ''}),
-      date: new FormControl({value: ''}, Validators.required),
-      code: new FormControl({value: '', disabled: true}, Validators.required),
-      place: new FormControl({value: '',disabled: true}, Validators.required)
-    });
-
-    this.renderDate()
+    private authenticationService: AuthenticationService,
+    private ticketService: TicketService,
+    private sharedService:SharedService
+  ) {
+    this.authenticationService.currentUser.subscribe(x =>{ this.currentUser = x;});
   }
+
+  currentUser: User;
   ticketCode = Math.round(Math.random() * 100000)
   form: FormGroup;
   loading = false;
@@ -86,19 +74,36 @@ export class BookTicketsComponent implements OnInit {
     "11": "Noviembre",
     "12": "Diciembre",
 
-    "Enero": "1",
-    "Febrero": "2",
-    "Marzo": "3",
-    "Abril": "4",
-    "Mayo": "5",
-    "Junio": "6",
-    "Julio": "7",
-    "Agosto": "8",
-    "Septiembre": "9",
+    "Enero": "01",
+    "Febrero": "02",
+    "Marzo": "03",
+    "Abril": "04",
+    "Mayo": "05",
+    "Junio": "06",
+    "Julio": "07",
+    "Agosto": "08",
+    "Septiembre": "09",
     "Octubre": "10",
     "Noviembre": "11",
     "Diciembre": "12",
   }
+  
+  
+  ngOnInit() {
+     this.renderDate()
+     this.formCreate()
+   }
+
+   formCreate(){
+    this.form = this.formBuilder.group({
+      from: new FormControl({value: ''}, Validators.required),
+      quantity: new FormControl({value: ''}, Validators.required),
+      hour: new FormControl({value: ''}),
+      date: new FormControl({value: ''}, Validators.required),
+      code: new FormControl({value: '', disabled: true}, Validators.required),
+      place: new FormControl({value: '',disabled: true}, Validators.required)
+    });
+   }
 
   changeDisabled(toCondition, toChange) {
     if (this.form.controls[toCondition].value != "") {
@@ -109,8 +114,24 @@ export class BookTicketsComponent implements OnInit {
   }
 
   onSubmit(e) {
-    e.date = this.dateElect.day + "/" + this.month[this.dateElect.month] + "/" + this.dateElect.year
-    console.log(e)
+    var day = parseInt(this.dateElect.day)
+    var day2 = day<10 ? "0"+day : day
+    var date = this.dateElect.year + "-" +
+              this.month[this.dateElect.month] + "-" +
+              day2 + "T" +
+              e.hour + ":00"
+
+    this.ticketService.create({
+      "from":e.from,
+      "place":e.place,
+      "date": date,
+      "status": TicketStatus.Pending,
+      "userId": this.currentUser.id,
+      "busId": 1,
+      "code": this.ticketCode
+    }).subscribe(x => this.formCreate(), error => console.error(error))
+
+    this.sharedService.sendClickEvent("bookTicket");
   }
 
   choiceHours(i: number) {
@@ -151,3 +172,15 @@ export class BookTicketsComponent implements OnInit {
     }
   }
 }
+
+
+
+
+ /* this.form = this.formBuilder.group({
+       from: ['', Validators.required],
+       place: ['', Validators.required],
+       quantity: ['', Validators.required],
+       hour: ['', Validators.required],
+       code: ['', Validators.required],
+       date: [''],
+     });*/

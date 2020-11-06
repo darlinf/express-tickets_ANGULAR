@@ -62,8 +62,8 @@
           </li>
 
           <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <div class="bag">78</div> 
+            <a (click)="refreshTicket()" class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <div class="bag" *ngIf="ticketsPending">{{ticketsPending.length}}</div> 
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right">

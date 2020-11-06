@@ -1,56 +1,24 @@
 <div class=" myStyle-card-container">
-
-    <div class="myStyle-card">
-        <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-        <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-        <div class="myStyle-icon">
-            <div role="button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </div>
-            <div role="button" class="oo">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </div>
-        </div>
-    </div>
     
-    <div class="myStyle-card">
-        <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-        <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-        <div class="myStyle-icon">
-            <div role="button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </div>
-            <div role="button" class="oo">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="myStyle-card">
-        <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-        <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-        <div class="myStyle-icon">
-            <div role="button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </div>
-            <div role="button" class="oo">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
+    <ng-container *ngFor="let ticket of ticketsPending">
+        <div class="myStyle-card">
+            <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
+            <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
+            <div class="myStyle-icon">
+                <div role="button">
+                    <i class="fa fa-trash-o" (click)="delete(ticket.id)" aria-hidden="true"></i>
+                </div>
+                <div role="button" class="oo">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="myStyle-card">
-        <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-        <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-        <div class="myStyle-icon">
-            <div role="button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
+        </ng-container>
+        <ng-container *ngIf="ticketsPending">
+            <div class="noInformation" *ngIf="ticketsPending.length == 0">
+                No hay información por mostrar.
             </div>
-            <div role="button" class="oo">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </div>
-        </div>
-    </div>
+        </ng-container>
 
     </div>
     <div class="myStyle-button-container">

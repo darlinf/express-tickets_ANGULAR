@@ -45,11 +45,24 @@ namespace WebApi.Controllers
             }
         }
 
-        [HttpGet]
-        public IActionResult GetAll(){
-            var tickets = _ticketService.GetAll();
+        [HttpGet("{Id}")]
+        public IActionResult GetAll(int Id){
+            var tickets = _ticketService.GetAll(Id);
             return Ok(tickets);
         }
+        
+        [HttpGet("GetAllBy/{Status}/{Id}")]
+        public IActionResult GetAllBy(string Status, int Id){
+            var tickets = _ticketService.GetAllBy(Status, Id);
+            return Ok(tickets);
+        }
+
+        [HttpDelete("{Id}")]
+        public IActionResult Delete(int Id){
+            _ticketService.Delete(Id);
+            return Ok();
+        }
+
         
     }
 }

@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
     // convenience getter for easy access to form fields
     get f() { return this.loginForm.controls; }
 
-    onSubmit() {
+    onSubmit() {console.log(this.loginForm.value)
         this.submitted = true;
 
         // stop here if form is invalid

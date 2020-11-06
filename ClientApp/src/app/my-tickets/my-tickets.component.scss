@@ -35,7 +35,7 @@
 .myStyle-card-container{
     overflow-y: scroll;
     max-height: 250px;
-    width: 333.2px;
+    width: 400px;
 }
 
 .dropdown-menu{
@@ -86,4 +86,15 @@
 }
 .myStyle-button{ 
     background-color: #27AE60 !important;
+}
+
+
+.noInformation{
+    height: 40px;
+    text-align: center;
+    line-height: 20px;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 7px;
+    box-shadow: 1px 2px 10px 0.10px #888888;
 }

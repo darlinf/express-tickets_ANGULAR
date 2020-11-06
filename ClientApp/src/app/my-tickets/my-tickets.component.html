@@ -1,8 +1,11 @@
+    
+    <form action="">
     <div class=" myStyle-card-container">
 
+    <ng-container *ngFor="let ticket of ticketsPending">
     <div class="myStyle-card">
-        <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-        <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
+        <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
+        <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
         <div class="myStyle-icon">
             <div role="button">
                 <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -12,48 +15,22 @@
             </div>
         </div>
     </div>
+    </ng-container>
+    <ng-container *ngIf="ticketsPending">
+        <div class="noInformation" *ngIf="ticketsPending.length == 0">
+            No hay información por mostrar.
+        </div>
+    </ng-container>
     
-    <div class="myStyle-card">
-        <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-        <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-        <div class="myStyle-icon">
-            <div role="button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </div>
-            <div role="button" class="oo">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </div>
-        </div>
     </div>
 
-    <div class="myStyle-card">
-        <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-        <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-        <div class="myStyle-icon">
-            <div role="button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </div>
-            <div role="button" class="oo">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="myStyle-card">
-        <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-        <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-        <div class="myStyle-icon">
-            <div role="button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </div>
-            <div role="button" class="oo">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </div>
-        </div>
-    </div>
-
-    </div>
-    
+    <select (change)="getTicketBy($event.target.value)" class="custom-select mr-sm-2">
+        <option selected value="paid">Pagados</option>
+        <option value="refund">Reembolsados</option>
+        <option value="used">Usados</option>
+      </select>
+    </form>
+    <!--
     <div class="myStyle-button-switch">
         <div role="button" class="myStyle-button">
             Pagados
@@ -65,3 +42,4 @@
             Usados
         </div>
     </div> 
+-->

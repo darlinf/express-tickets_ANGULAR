@@ -15,6 +15,7 @@ import { LoginComponent } from './login/login.component';
 import { appRoutingModule } from './app.routing';
 import { MyTicketsComponent } from './my-tickets/my-tickets.component';
 import { PayComponent } from './pay/pay.component';
+import { DateMyFormatPipe } from './_pipes/date-my-format.pipe';
 
 @NgModule({  
   declarations: [
@@ -27,7 +28,8 @@ import { PayComponent } from './pay/pay.component';
     CartComponent,
     BookTicketsComponent,
     TicketManagementComponent,
-    PayComponent
+    PayComponent,
+    DateMyFormatPipe
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
