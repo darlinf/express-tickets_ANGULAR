@@ -16,6 +16,8 @@ import { appRoutingModule } from './app.routing';
 import { MyTicketsComponent } from './my-tickets/my-tickets.component';
 import { PayComponent } from './pay/pay.component';
 import { DateMyFormatPipe } from './_pipes/date-my-format.pipe';
+import { PayResurtComponent } from './pay-resurt/pay-resurt.component';
+import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 
 @NgModule({  
   declarations: [
@@ -29,7 +31,9 @@ import { DateMyFormatPipe } from './_pipes/date-my-format.pipe';
     BookTicketsComponent,
     TicketManagementComponent,
     PayComponent,
-    DateMyFormatPipe
+    DateMyFormatPipe,
+    PayResurtComponent,
+    EditTicketComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),

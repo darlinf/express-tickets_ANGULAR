@@ -29,32 +29,14 @@ export class NavMenuComponent implements OnInit{
     constructor(
         private router: Router,
         private authenticationService: AuthenticationService,
-        private sharedService:SharedService,
-        private ticketService: TicketService,
-
     ) {
         this.authenticationService.currentUser.subscribe(x =>{ this.currentUser = x;});
-        this.clickEventsubscription = this.sharedService.getClickEvent().subscribe({
-          next: (v) =>{ 
-            if(v == "bookTicket"){
-              console.log(`observerA: ${v}`)
-              this.getTicket()
-            }
-            
-          }
-        })
+        
     }
   ngOnInit(): void {
-    this.getTicket()
     
   }
 
-  refreshTicket(){
-    this.sharedService.sendClickEvent("cart")
-  }
-
-  clickEventsubscription:Subscription;
-  ticketsPending: any
 
     get isAdmin() {
       return this.currentUser && this.currentUser.role === Role.Admin;
@@ -68,12 +50,13 @@ export class NavMenuComponent implements OnInit{
         this.router.navigate(['/']);
     }
 
-    getTicket(){
-      this.ticketService.getAllBy(TicketStatus.Pending, this.currentUser.id).subscribe(x => {
-      
-        this.ticketsPending = x
-        console.log(this.ticketsPending.length)
-      
-      })
+    bagNum2=0
+    public bagNumber2(num) {
+      this.bagNum2 = num
+    }
+
+    bagNum=0
+    public bagNumber(num) {
+      this.bagNum = num
     }
 }

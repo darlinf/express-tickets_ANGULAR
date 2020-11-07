@@ -6,11 +6,11 @@
     <div class="myStyle-card">
         <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
         <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
-        <div class="myStyle-icon">
-            <div role="button">
-                <i class="fa fa-trash-o" aria-hidden="true"></i>
+        <div class="myStyle-icon" *ngIf="ticket.status != 'Refund'">
+            <div role="button" (click)="refund(ticket)">
+                <i class="fa fa-retweet"  aria-hidden="true"></i>
             </div>
-            <div role="button" class="oo">
+            <div role="button" class="oo" [routerLink]="['/editarTicket', ticket.id]" >
                 <i class="fa fa-pencil" aria-hidden="true"></i>
             </div>
         </div>

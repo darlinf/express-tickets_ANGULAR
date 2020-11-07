@@ -13,6 +13,7 @@ namespace express_tickets.Data.Entities
         public DateTime Date { get; set; }
         public string Status { get; set; }
         public int Code { get; set; }
+        public int Quantity { get; set; }
 
         public int UserId { get; set; }
         public int BusId { get; set; }

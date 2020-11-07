@@ -9,6 +9,7 @@ using AutoMapper;
 using WebApi.Helpers;
 using Microsoft.Extensions.Options;
 using express_tickets.Data.Entities;
+using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
@@ -50,6 +51,12 @@ namespace WebApi.Controllers
             var tickets = _ticketService.GetAll(Id);
             return Ok(tickets);
         }
+
+        [HttpGet("GetById/{Id}")]
+        public IActionResult GetById(int id){
+            var ticket = _ticketService.GetById(id);
+            return Ok(ticket);
+        }
         
         [HttpGet("GetAllBy/{Status}/{Id}")]
         public IActionResult GetAllBy(string Status, int Id){
@@ -63,7 +70,17 @@ namespace WebApi.Controllers
             return Ok();
         }
 
-        
+        [HttpPut]
+        public IActionResult Edit(Ticket editTicket){
+            _ticketService.Edit(editTicket);
+            return Ok();
+        }
+
+        [HttpPut("EditList")]
+        public IActionResult EditList(IEnumerable<Ticket> editTicket){
+            _ticketService.EditList(editTicket);
+            return Ok();
+        }
     }
 }
    

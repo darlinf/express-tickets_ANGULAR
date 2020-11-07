@@ -53,21 +53,21 @@
           </li>
           <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
             <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <div class="bag">7</div> 
+             <div class="bag">{{bagNum2}}</div> 
              <i class="fa fa-ticket" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <app-my-tickets></app-my-tickets>
-            </div>
+              <app-my-tickets (onBagNumber2)="bagNumber2($event)"></app-my-tickets> 
+            </div>   
           </li>
 
           <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
-            <a (click)="refreshTicket()" class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <div class="bag" *ngIf="ticketsPending">{{ticketsPending.length}}</div> 
+            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+             <div class="bag" >{{bagNum}}</div> 
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu dropdown-menu-right">
-              <app-cart></app-cart>
+              <app-cart (onBagNumber)="bagNumber($event)" ></app-cart>
             </div>
           </li>
 
@@ -80,15 +80,17 @@
           </li>
         </ng-container> 
         <ng-container *ngIf="currentUser">
-          <li class="nav-item" [routerLinkActive]="['link-active']">
+          <li class="nav-item " [routerLinkActive]="['link-active']">
              <div class="dropdown show">
               <a class="dropdown-toggle nav-link text-dark " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="fa fa-user-circle" aria-hidden="true"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuLink">
+              <div class="myStyle-user-options">
+              <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuLink">
                 <a class="dropdown-item" [routerLink]="['/']" (click)="logout()">Cerrar seccion</a>
                 <a class="dropdown-item" href="#">Editar perfir</a>
               </div>
+            </div>
             </div>
            </li>
          </ng-container>

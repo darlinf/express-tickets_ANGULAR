@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from '../_models';
 import { TicketStatus } from '../_models/TicketStatus';
@@ -21,7 +21,7 @@ export class CartComponent implements OnInit {
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe({
       
       next: (v) => {
-        if(v == "cart"){
+        if(v == "bookTicket"){
           this.getTicket()
           console.log(`observerA: ${v}`)
         }
@@ -44,9 +44,17 @@ export class CartComponent implements OnInit {
   getTicket(){
     this.ticketService.getAllBy(TicketStatus.Pending, this.currentUser.id).subscribe(x => {
       this.ticketsPending = x
+
+        this.bagNumber = x.length
+        console.log(this.bagNumber)
+     
+      this.onBagNumber.emit(this.bagNumber);
     })
   }
+  bagNumber = 0
+
   currentUser: User
   ticketsPending: any
   clickEventsubscription:Subscription;
+  @Output() onBagNumber: EventEmitter<any> = new EventEmitter<any>();
 }

@@ -1,5 +1,5 @@
 <div class=" myStyle-card-container">
-    
+    <form action="">
     <ng-container *ngFor="let ticket of ticketsPending">
         <div class="myStyle-card">
             <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
@@ -19,7 +19,7 @@
                 No hay información por mostrar.
             </div>
         </ng-container>
-
+    </form>
     </div>
     <div class="myStyle-button-container">
         <a class="nav-link myStyle-pay" [routerLink]="['/pagar']">

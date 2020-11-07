@@ -5,7 +5,7 @@
       <div>
         <div class="myStyle-table-container">
 
-          <table class="table myStyle-table">
+          <table class="table table-striped myStyle-table">
             <thead>
               <tr>
                 <th scope="col">Detalles</th>
@@ -15,75 +15,25 @@
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>
-                  <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-                  <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-                </td>
-                <td>5.20$</td>
-                <td>3</td>
-                <td>15.60$</td>
-              </tr>
-              <tr>
-                <td>
-                  <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-                  <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-                </td>
-                <td>5.20$</td>
-                <td>3</td>
-                <td>15.60$</td>
-              </tr>
-             
-              <tr>
-                <td>
-                  <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-                  <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-                </td>
-                <td>5.20$</td>
-                <td>3</td>
-                <td>15.60$</td>
-              </tr><tr>
-                <td>
-                  <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-                  <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-                </td>
-                <td>5.20$</td>
-                <td>3</td>
-                <td>15.60$</td>
-              </tr><tr>
-                <td>
-                  <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-                  <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-                </td>
-                <td>5.20$</td>
-                <td>3</td>
-                <td>15.60$</td>
-              </tr><tr>
-                <td>
-                  <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-                  <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-                </td>
-                <td>5.20$</td>
-                <td>3</td>
-                <td>15.60$</td>
-              </tr><tr>
-                <td>
-                  <p>Desde: <b>Santo Domingo</b> Hasta: <b>Santiago</b></p>
-                  <p>Fecha: <b>18/05/2018</b> Hora: <b>11:40 AM</b></p>
-                </td>
-                <td>5.20$</td>
-                <td>3</td>
-                <td>15.60$</td>
-              </tr>
-            
               
-              
+              <ng-container *ngFor="let ticket of ticketsPending">
+                <tr>
+                  <td>
+                    <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p>
+                    <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
+                  </td>
+                  <td>250$</td>
+                  <td>{{ticket.quantity}}</td>
+                  <td>{{ticket.quantity*250}}$</td>
+                </tr>
+              </ng-container>
+
             </tbody>
           </table>
         </div>
         <div class="myStyle-method">
-            <p><b>Metodo de pago</b></p>
-            <p>Total <b>10.58$</b></p>
+          <p><b>Metodo de pago</b></p>
+          <p>Total <b>{{total}}$</b></p>
         </div>
       </div>
       <div>
@@ -97,7 +47,7 @@
           <i class="fa fa-cc-visa" aria-hidden="true"></i>
           <span>&nbsp;&nbsp;•••• 7825</span>
         </label>
-        <button class="btn btn-success btn-lg">Pagar</button>
+        <button type="button" class="btn btn-success btn-lg" (click)="pay()" >Pagar</button>
       </div>
     </div>
   </div>

@@ -103,6 +103,7 @@ export class BookTicketsComponent implements OnInit {
       code: new FormControl({value: '', disabled: true}, Validators.required),
       place: new FormControl({value: '',disabled: true}, Validators.required)
     });
+    this.ticketCode = Math.round(Math.random() * 100000)
    }
 
   changeDisabled(toCondition, toChange) {
@@ -127,11 +128,15 @@ export class BookTicketsComponent implements OnInit {
       "date": date,
       "status": TicketStatus.Pending,
       "userId": this.currentUser.id,
+      "quantity": parseInt(e.quantity),
       "busId": 1,
       "code": this.ticketCode
-    }).subscribe(x => this.formCreate(), error => console.error(error))
+    }).subscribe(x =>{ 
+      this.formCreate()
+      this.sharedService.sendClickEvent("bookTicket");
+    }, error => console.error(error))
 
-    this.sharedService.sendClickEvent("bookTicket");
+
   }
 
   choiceHours(i: number) {

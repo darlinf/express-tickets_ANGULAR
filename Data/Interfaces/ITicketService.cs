@@ -15,6 +15,7 @@ namespace Atiendeme.Data.Interfaces
         IEnumerable<Ticket> GetAllBy(string status, int Id);
         void ChangeStatus(TicketChangeStatus ticketChangeStatus);
         void Delete(int Id);
+        void EditList(IEnumerable<Ticket> ticketToEdit);
         void Edit(Ticket ticketToEdit);
         Ticket GetById(int id);
     }

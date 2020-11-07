@@ -57,6 +57,12 @@ namespace WebApi.Services
             }
         }
 
+        public void EditList(IEnumerable<Ticket> ticketToEdit)
+        {
+            _context.UpdateRange(ticketToEdit);
+            _context.SaveChanges();
+        }
+        
         public void Edit(Ticket ticketToEdit)
         {
             _context.Entry(ticketToEdit).State = EntityState.Modified;

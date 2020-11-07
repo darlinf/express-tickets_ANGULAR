@@ -23,6 +23,11 @@ html {
     font-size: 20px;
   }
 }
+.myStyle-user-options{
+  .dropdown-menu{
+    border: 1px rgba(128, 128, 128, 0.589) solid;
+  }
+}
 .dropdown-menu{
   border: none;
 }
