@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from '../_models';
 import { TicketStatus } from '../_models/TicketStatus';
@@ -16,7 +16,9 @@ export class CartComponent implements OnInit {
   constructor(
     private authenticationService: AuthenticationService,
     private ticketService: TicketService,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    private el: ElementRef
+
   ) { 
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe({
       
@@ -29,11 +31,6 @@ export class CartComponent implements OnInit {
     })
   }
   
-  delete(x){
-    this.ticketService.delete(x).subscribe(x => {
-      this.getTicket()
-    })
-  }
 
   ngOnInit() {
     
@@ -51,6 +48,29 @@ export class CartComponent implements OnInit {
       this.onBagNumber.emit(this.bagNumber);
     })
   }
+
+  closeWindow(){
+    let myTag = this.el.nativeElement.querySelector(".close-window")
+    console.log(myTag)
+    myTag.classList.remove('show')
+  }
+  
+  delete(){
+    this.ticketService.delete(this.ticket.id).subscribe(x => {
+      this.getTicket()
+      this.showSwitch = false
+    })
+  }
+
+  deleteDecition(ticket){
+    this.ticket = ticket
+    this.showSwitch = true
+    this.ticketForDelete = ticket.code
+  }
+
+  ticket: any
+  ticketForDelete: any
+  showSwitch = false
   bagNumber = 0
 
   currentUser: User

@@ -25,7 +25,9 @@
 .myStyle-icon div:hover{
     @include buttonIconHover;
 }
-
+.dropdown-menu {
+    border: none;
+}
 .myStyle-button-container{
     display: flex;
     flex-direction: row-reverse;
@@ -95,4 +97,71 @@
     margin: 10px;
     border-radius: 7px;
     box-shadow: 1px 2px 10px 0.10px #888888;
+}
+
+
+
+.my-container{
+	/*border: red solid 1px;
+	height: 500px;
+	width: 300px;
+	margin: auto;*/
+	
+	position: relative;
+}
+
+
+.confirm{
+    transition: all 0.3s ease;
+    opacity: 0;
+    visibility: hidden;
+	width: 100%;
+	background: rgba(0,0,0,0.55);; 
+	height: 100%;
+	
+	position: absolute;
+	top: 0px;
+	display: flex; 
+	justify-content: center;
+	align-items: center;
+}
+
+.confirm-show{
+    opacity: 1;
+    visibility: visible;
+}
+.confirm-options{
+	width: 200px;
+	text-align: center;
+	border: 1px solid gray;
+	border-radius: 10px;
+	padding: 10px 10px 13px 10px;
+	background: #2ecc71;	
+	color: white
+}
+
+.confirm-options > div{
+	display: flex;
+	justify-content: space-around;
+	margin-top: 5px
+}
+
+.confirm-options > div > div{
+	color: white;
+	padding: 3px;
+	border-radius: 4px;	
+}
+.confirm-options > div > div:nth-child(1){
+    transition: all 0.2s ease;
+	background: green;
+}
+.confirm-options > div > div:nth-child(1):hover{
+    background: rgb(3, 107, 3);
+}
+.confirm-options > div > div:nth-child(2){
+    transition: all 0.2s ease;
+	background: red;
+}
+.confirm-options > div > div:nth-child(2):hover{
+    background: rgb(175, 29, 29);
 }

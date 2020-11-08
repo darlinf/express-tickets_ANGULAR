@@ -56,9 +56,8 @@
              <div class="bag">{{bagNum2}}</div> 
              <i class="fa fa-ticket" aria-hidden="true"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
               <app-my-tickets (onBagNumber2)="bagNumber2($event)"></app-my-tickets> 
-            </div>   
+            
           </li>
 
           <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
@@ -66,9 +65,8 @@
              <div class="bag" >{{bagNum}}</div> 
               <i class="fa fa-shopping-cart" aria-hidden="true"></i>
             </a>
-            <div class="dropdown-menu dropdown-menu-right">
               <app-cart (onBagNumber)="bagNumber($event)" ></app-cart>
-            </div>
+            
           </li>
 
         </ng-container> 

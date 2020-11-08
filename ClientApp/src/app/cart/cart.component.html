@@ -1,15 +1,25 @@
+<div class="dropdown-menu dropdown-menu-right close-window">
+<form action="" class="my-container">
+
+        <div class="confirm" [ngClass]="{'confirm-show': showSwitch}"> 
+			<div class="confirm-options">
+				<p>Seguro que deseas eliminar este ticket: <b>#{{ticketForDelete}}</b></p>
+				<div>
+					<div role="button" (click)="delete()">Aceptar</div>
+					<div role="button" (click)="showSwitch = false">Cancelar</div>	
+				</div>
+			</div>
+        </div>	
+
 <div class=" myStyle-card-container">
-    <form action="">
+    
     <ng-container *ngFor="let ticket of ticketsPending">
         <div class="myStyle-card">
             <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
             <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
             <div class="myStyle-icon">
                 <div role="button">
-                    <i class="fa fa-trash-o" (click)="delete(ticket.id)" aria-hidden="true"></i>
-                </div>
-                <div role="button" class="oo">
-                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                    <i class="fa fa-trash-o" (click)="deleteDecition(ticket)" aria-hidden="true"></i>
                 </div>
             </div>
         </div>
@@ -19,10 +29,18 @@
                 No hay información por mostrar.
             </div>
         </ng-container>
-    </form>
+    
     </div>
+
+    <ng-container *ngIf="ticketsPending">
     <div class="myStyle-button-container">
-        <a class="nav-link myStyle-pay" [routerLink]="['/pagar']">
+        <div *ngIf="ticketsPending.length != 0">
+        <a class="nav-link myStyle-pay" (click)="closeWindow()"  [routerLink]="['/pagar']">
             <i class="fa fa-money" aria-hidden="true"></i> Pagar
         </a>
-    </div> 
+        </div>
+    </div>  
+    </ng-container>
+
+</form>
+</div>

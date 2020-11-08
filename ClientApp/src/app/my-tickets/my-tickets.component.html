@@ -1,16 +1,31 @@
     
-    <form action="">
+
+    <div class="dropdown-menu dropdown-menu-right close-window">
+
+    <form action="" class="my-container"> 
+
+        <div class="confirm" [ngClass]="{'confirm-show': showSwitch}"> 
+			<div class="confirm-options">
+				<p>Seguro que deseas reembolsar este ticket: <b>#{{ticketForDelete}}</b></p>
+				<div>
+					<div role="button" (click)="refund()">Aceptar</div>
+					<div role="button" (click)="showSwitch = false">Cancelar</div>	
+				</div>
+			</div>
+        </div>	
+        
     <div class=" myStyle-card-container">
 
     <ng-container *ngFor="let ticket of ticketsPending">
+        
     <div class="myStyle-card">
         <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
         <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
         <div class="myStyle-icon" *ngIf="ticket.status != 'Refund'">
-            <div role="button" (click)="refund(ticket)">
+            <div role="button" (click)="refundDecition(ticket)" >
                 <i class="fa fa-retweet"  aria-hidden="true"></i>
             </div>
-            <div role="button" class="oo" [routerLink]="['/editarTicket', ticket.id]" >
+            <div role="button" class="oo" (click)="closeWindow()" [routerLink]="['/editarTicket', ticket.id]" >
                 <i class="fa fa-pencil" aria-hidden="true"></i>
             </div>
         </div>
@@ -30,6 +45,8 @@
         <option value="used">Usados</option>
       </select>
     </form>
+
+    </div>
     <!--
     <div class="myStyle-button-switch">
         <div role="button" class="myStyle-button">

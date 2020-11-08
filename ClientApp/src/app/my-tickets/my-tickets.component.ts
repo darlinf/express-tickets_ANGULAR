@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { User } from '../_models';
 import { TicketStatus } from '../_models/TicketStatus';
@@ -12,12 +12,14 @@ import { TicketService } from '../_services/ticket.service';
   styleUrls: ['./my-tickets.component.scss']
 })
 export class MyTicketsComponent implements OnInit {
-
   constructor(
     private authenticationService: AuthenticationService,
     private sharedService:SharedService,
-    private ticketService: TicketService
+    private ticketService: TicketService,
+    private el: ElementRef
   ) { }
+
+
   ngOnInit() {
     this.authenticationService.currentUser.subscribe(x =>{ this.currentUser = x;});
     this.getTicketBy(TicketStatus.Paid)
@@ -33,14 +35,31 @@ export class MyTicketsComponent implements OnInit {
     })
   }
 
-  refund(ticket){
-    ticket.status = TicketStatus.Refund
-    this.ticketService.edit(ticket).subscribe(x => {
+  closeWindow(){
+    let myTag = this.el.nativeElement.querySelector(".close-window")
+    console.log(myTag)
+    myTag.classList.remove('show')
+  }
+
+  refund(){
+    this.ticket.status = TicketStatus.Refund
+    this.ticketService.edit(this.ticket).subscribe(x => {
       console.log("dddd")
+      this.showSwitch = false
       this.getTicketBy(TicketStatus.Paid)
     }, e => console.log(e))
   }
-  
+
+  refundDecition(ticket){
+    this.ticket = ticket
+    this.showSwitch = true
+    this.ticketForDelete = ticket.code
+  }
+
+  ticket: any
+  ticketForDelete: any
+  showSwitch = false
+
 
   getTicketBy(x){
     this.ticketService.getAllBy(x, this.currentUser.id).subscribe(x => {

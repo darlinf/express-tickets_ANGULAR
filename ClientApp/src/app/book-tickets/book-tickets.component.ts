@@ -1,5 +1,6 @@
 import {
   Component,
+  ElementRef,
   OnInit
 } from '@angular/core';
 import {
@@ -35,58 +36,12 @@ export class BookTicketsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private authenticationService: AuthenticationService,
     private ticketService: TicketService,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    private el: ElementRef
   ) {
     this.authenticationService.currentUser.subscribe(x =>{ this.currentUser = x;});
   }
 
-  currentUser: User;
-  ticketCode = Math.round(Math.random() * 100000)
-  form: FormGroup;
-  loading = false;
-  submitted = false;
-  returnUrl: string;
-  error = '';
-  sites = ["Bani", "San Cristóbal", "Santo Domingo", "Puerto Plata", "Santiago", "La Vega", "Higüey", "Samaná", "La Romana"]
-  showHours = false
-  dt = new Date()
-  isLast = false
-  dateElect = null
-  isAllValid = false
-  day = {
-    prev_date: [],
-    today: [],
-    days: []
-  }
-  moveDateNo = true
-  dates2 = []
-  month = {
-    "1": "Enero",
-    "2": "Febrero",
-    "3": "Marzo",
-    "4": "Abril",
-    "5": "Mayo",
-    "6": "Junio",
-    "7": "Julio",
-    "8": "Agosto",
-    "9": "Septiembre",
-    "10": "Octubre",
-    "11": "Noviembre",
-    "12": "Diciembre",
-
-    "Enero": "01",
-    "Febrero": "02",
-    "Marzo": "03",
-    "Abril": "04",
-    "Mayo": "05",
-    "Junio": "06",
-    "Julio": "07",
-    "Agosto": "08",
-    "Septiembre": "09",
-    "Octubre": "10",
-    "Noviembre": "11",
-    "Diciembre": "12",
-  }
   
   
   ngOnInit() {
@@ -175,17 +130,67 @@ export class BookTicketsComponent implements OnInit {
         })
       }
     }
+    
+  }
+
+  removeStyles(){
+    let myTag = this.el.nativeElement.querySelector(".remove-style")
+    console.log(myTag)
+    myTag.classList.remove('show')
+  }
+
+
+
+
+  
+  currentUser: User;
+  ticketCode = Math.round(Math.random() * 100000)
+  form: FormGroup;
+  loading = false;
+  submitted = false;
+  returnUrl: string;
+  error = '';
+  sites = ["Bani", "San Cristóbal", "Santo Domingo", "Puerto Plata", "Santiago", "La Vega", "Higüey", "Samaná", "La Romana"]
+  showHours = false
+  dt = new Date()
+  isLast = false
+  dateElect = null
+  isAllValid = false
+  day = {
+    prev_date: [],
+    today: [],
+    days: []
+  }
+  moveDateNo = true
+  dates2 = []
+  month = {
+    "1": "Enero",
+    "2": "Febrero",
+    "3": "Marzo",
+    "4": "Abril",
+    "5": "Mayo",
+    "6": "Junio",
+    "7": "Julio",
+    "8": "Agosto",
+    "9": "Septiembre",
+    "10": "Octubre",
+    "11": "Noviembre",
+    "12": "Diciembre",
+
+    "Enero": "01",
+    "Febrero": "02",
+    "Marzo": "03",
+    "Abril": "04",
+    "Mayo": "05",
+    "Junio": "06",
+    "Julio": "07",
+    "Agosto": "08",
+    "Septiembre": "09",
+    "Octubre": "10",
+    "Noviembre": "11",
+    "Diciembre": "12",
   }
 }
 
 
 
-
- /* this.form = this.formBuilder.group({
-       from: ['', Validators.required],
-       place: ['', Validators.required],
-       quantity: ['', Validators.required],
-       hour: ['', Validators.required],
-       code: ['', Validators.required],
-       date: [''],
-     });*/
