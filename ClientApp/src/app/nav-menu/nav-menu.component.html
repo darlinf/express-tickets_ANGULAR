@@ -1,97 +1,76 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
     <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">express_tickets</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+      <a class="navbar-brand" [routerLink]="['/']">Ticket express</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse"
+        aria-label="Toggle navigation" [attr.aria-expanded]="isExpanded" (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse"
-        [ngClass]="{ show: isExpanded }"
-      >
+      <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
         <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
+          <li class="nav-item" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{ exact: true }">
           </li>
-          
+
           <ng-container *ngIf="!currentUser">
-            <li class="nav-item" [routerLinkActive]="['link-active']">
-              <a class="nav-link text-dark" [routerLink]="['/ReservarTicket']"
-                >Reservar ticket</a
-              >
-            </li>
-          <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Iniciar seccion
-            </a>
-            <app-login style="margin-top: 500px;"></app-login>
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/registrarse']"
-              >Registrarse</a
-            >
-          </li>
-        </ng-container>
-        <ng-container *ngIf="isUser">
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/ReservarTicket']"
-              >Reservar ticket</a
-            >
-          </li>
-          <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <div class="bag">{{bagNum2}}</div> 
-             <i class="fa fa-ticket" aria-hidden="true"></i>
-            </a>
-              <app-my-tickets (onBagNumber2)="bagNumber2($event)"></app-my-tickets> 
-            
-          </li>
-
-          <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-             <div class="bag" >{{bagNum}}</div> 
-              <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-            </a>
-              <app-cart (onBagNumber)="bagNumber($event)" ></app-cart>
-            
-          </li>
-
-        </ng-container> 
-        <ng-container *ngIf="isAdmin">
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/gestion']" 
-              >Gestionar tickets</a
-            >
-          </li>
-        </ng-container> 
-        <ng-container *ngIf="currentUser">
-          <li class="nav-item " [routerLinkActive]="['link-active']">
-             <div class="dropdown show">
-              <a class="dropdown-toggle nav-link text-dark " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="fa fa-user-circle" aria-hidden="true"></i>
+            <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Iniciar seccion
               </a>
-              <div class="myStyle-user-options">
-              <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuLink">
-                <a class="dropdown-item" [routerLink]="['/']" (click)="logout()">Cerrar seccion</a>
-                <a class="dropdown-item" href="#">Editar perfir</a>
+              <app-login style="margin-top: 500px;"></app-login>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/registrarse']">Registrarse</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="isUser">
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/ReservarTicket']">Reservar ticket</a>
+            </li>
+            <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="bag">{{bagNum2}}</div>
+                <i class="fa fa-ticket" aria-hidden="true"></i>
+              </a>
+              <app-my-tickets (onBagNumber2)="bagNumber2($event)"></app-my-tickets>
+
+            </li>
+
+            <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="bag">{{bagNum}}</div>
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+              </a>
+              <app-cart (onBagNumber)="bagNumber($event)"></app-cart>
+
+            </li>
+
+          </ng-container>
+          <ng-container *ngIf="isAdmin">
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-dark" [routerLink]="['/gestion']">Gestionar tickets</a>
+            </li>
+          </ng-container>
+
+          <ng-container *ngIf="currentUser">
+            <li class="nav-item ">
+              <div class="dropdown show">
+                <a class="dropdown-toggle nav-link text-dark " href="#" role="button" id="dropdownMenuLink"
+                  data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  <i class="fa fa-user-circle" aria-hidden="true"></i>
+                </a>
+                <div class="myStyle-user-options">
+                  <div class="dropdown-menu dropdown-menu-right " aria-labelledby="dropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="['/']" (click)="logout()">Cerrar seccion</a>
+                  <!--<a class="dropdown-item" [routerLink]="['/editarPerfil']">Editar perfir</a>-->
+                  </div>
+                </div>
               </div>
-            </div>
-            </div>
-           </li>
-         </ng-container>
+            </li>
+          </ng-container>
+          
         </ul>
       </div>
     </div>

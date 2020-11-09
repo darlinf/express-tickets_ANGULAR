@@ -1,8 +1,16 @@
 .myStyle-container{
     width: 50%;
-    height: 60vh;
     margin: auto;
     > div{
         margin: 20px;
     }
+    background-color: rgba(94, 139, 94, 0.014);
 }
+.seach{
+    display: flex;
+    > button{
+        white-space: nowrap;
+        margin-left: 5px;
+    }
+}
+

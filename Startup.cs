@@ -74,6 +74,7 @@ namespace express_tickets
             // configure DI for application services
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITicketService, TicketService>();
+            services.AddScoped<ITicketManagementService, TicketManagementService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

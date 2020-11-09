@@ -11,6 +11,7 @@ import { BookTicketsComponent } from './book-tickets/book-tickets.component';
 import { PayComponent } from './pay/pay.component';
 import { PayResurtComponent } from './pay-resurt/pay-resurt.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -36,6 +37,12 @@ const routes: Routes = [
     {
         path: 'pagado',
         component:  PayResurtComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.User] }
+    },
+    {
+        path: 'editarPerfil',
+        component:  UserEditComponent,
         canActivate: [AuthGuard],
         data: { roles: [Role.User] }
     },

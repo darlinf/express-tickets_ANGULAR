@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { TicketManagementServiceService } from '../_services/ticket-management-service.service';
 
 @Component({
   selector: 'app-ticket-management',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TicketManagementComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private ticketManagementService: TicketManagementServiceService
+  ) { }
    
   ngOnInit() {
   }
 
+  redeemTicketCode: number
+
+  redeemTicket(){console.log(this.redeemTicketCode)
+    //this.ticketManagementService.redeemTicket(2).subscribe(x => {}, error => console.log(error))
+  }
 }

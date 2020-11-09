@@ -18,6 +18,7 @@ import { PayComponent } from './pay/pay.component';
 import { DateMyFormatPipe } from './_pipes/date-my-format.pipe';
 import { PayResurtComponent } from './pay-resurt/pay-resurt.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
 
 @NgModule({  
   declarations: [
@@ -33,7 +34,8 @@ import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
     PayComponent,
     DateMyFormatPipe,
     PayResurtComponent,
-    EditTicketComponent
+    EditTicketComponent,
+    UserEditComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
