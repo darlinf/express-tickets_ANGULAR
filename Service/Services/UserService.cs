@@ -104,7 +104,7 @@ namespace WebApi.Services
             var user = _context.Users.Find(userParam.Id);
 
             if (user == null)
-                throw new AppException("User not found");
+                throw new AppException("Usuario no encontrado");
 
             if (userParam.Mail != user.Mail)
             {

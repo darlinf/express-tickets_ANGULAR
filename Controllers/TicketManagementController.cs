@@ -34,22 +34,46 @@ namespace WebApi.Controllers
         [HttpGet("CancelBus/{Number}")]
         public IActionResult CancelBus(int Number)
         {
-            _ticketManagementService.CancelBus(Number);
-            return Ok();
+            try
+            {
+                _ticketManagementService.CancelBus(Number);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpGet("ChangeUserRol/{mail}")]
         public IActionResult ChangeUserRol(string mail)
         {
-            _ticketManagementService.ChangeUserRol(mail);
-            return Ok();
+            try
+            {
+                _ticketManagementService.ChangeUserRol(mail);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
-        [HttpGet("RedeemTicket/{Number}")]
+        [HttpGet("RedeemTicket/{code}")]
         public IActionResult RedeemTicket(int code)
         {
-            _ticketManagementService.RedeemTicket(code);
-            return Ok();
+            try
+            {
+                _ticketManagementService.RedeemTicket(code);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
     }

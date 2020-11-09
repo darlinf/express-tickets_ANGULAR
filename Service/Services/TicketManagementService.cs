@@ -28,32 +28,40 @@ namespace WebApi.Services
         public void CancelBus(int Number)
         {
             var bus = _context.Buses.FirstOrDefault(x => x.Number == Number);
-            if(bus != null){
-                var ticket = _context.Tickets.Where(x => x.BusId == bus.Id).ToList();
-                ticket.ForEach(x => x.Status = TicketStatus.refund);
-                _context.UpdateRange(ticket);
-                _context.SaveChanges();
-            }
+            if(bus == null) throw new AppException("Bus no encontrado");
+            if(bus.Status == BusStatus.Cancel) throw new AppException("El bus ya ha sido cancelado");
+
+            var ticket = _context.Tickets.Where(x => x.BusId == bus.Id).ToList();
+            bus.Status = BusStatus.Cancel;
+            ticket.ForEach(x => x.Status = TicketStatus.refund);
+            _context.UpdateRange(ticket);
+            _context.SaveChanges();
+            
         }
 
         public void ChangeUserRol(string mail)
         {
             var user = _context.Users.FirstOrDefault(x => x.Mail == mail);
-            if(user != null){
-                user.Role = Role.Admin;
-                _context.Update(user);
-                _context.SaveChanges();
-            }
+            if(user == null) throw new AppException("Usuario no encontrado");
+            if(user.Role == Role.Admin) throw new AppException("El usuario ya es administrador");
+
+            user.Role = Role.Admin;
+            _context.Update(user);
+            _context.SaveChanges();
+            
         }
 
         public void RedeemTicket(int code)
         {
             var ticket = _context.Tickets.FirstOrDefault(x => x.Code == code);
-            if(ticket != null){
-                ticket.Status = TicketStatus.Used;
-                _context.Update(ticket);
-                _context.SaveChanges();
-            }
+
+            if(ticket == null) throw new AppException("Ticket no encontrado");
+            if(ticket.Status == TicketStatus.Used) throw new AppException("Ticket ya ha sido usado");
+
+            ticket.Status = TicketStatus.Used;
+            _context.Update(ticket);
+            _context.SaveChanges();
+            
         }
     }
 }
