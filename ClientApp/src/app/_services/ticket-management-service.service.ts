@@ -10,15 +10,15 @@ export class TicketManagementServiceService {
     
   }
 
-  cancelBus(id: number){
-    return this.http.get<any>(this.baseUrl + 'ticket/CancelBus/' + id);
+  cancelBus(id: string){
+    return this.http.get<any>(this.baseUrl + 'TicketManagement/CancelBus/' + id);
   } 
 
   changeUserRol(mail: string){
-    return this.http.get<any>(this.baseUrl + 'ticket/ChangeUserRol/' + mail);
+    return this.http.get<any>(this.baseUrl + 'TicketManagement/ChangeUserRol/' + mail);
   } 
 
-  redeemTicket(code: number){
-    return this.http.get<any>(this.baseUrl + 'ticket/RedeemTicket/' + code);
+  redeemTicket(code: string){
+    return this.http.get<any>(this.baseUrl + 'TicketManagement/RedeemTicket/' + code);
   } 
 }

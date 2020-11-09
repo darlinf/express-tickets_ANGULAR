@@ -19,11 +19,11 @@ export class HomeComponent implements OnInit {
     this.text = document.querySelector(".fancy");
     this.strText = this.text.textContent;
     this.splitText = this.strText.split("") ;
-    this.text.textContent = "";
+    //this.text.textContent = "";
 
-    for (let i = 0; i < this.splitText.length; i++) {
+    /*for (let i = 0; i < this.splitText.length; i++) {
       this.text.innerHTML += "<span class='span-text'>" + this.splitText[i] + "</span>";
-    }
+    }*/
 
     this.chayr = 0;
     this.timer = setInterval(()=>this.onTick(), 70);
@@ -41,7 +41,7 @@ export class HomeComponent implements OnInit {
 
     onTick() {
         const span = this.text.querySelectorAll(".span-text")[this.chayr];
-        span.classList.add("fade2");
+        span.classList.add("fade");
         this.chayr++;
         if (this.chayr === this.splitText.length) {
             this.complete();

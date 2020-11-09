@@ -2,15 +2,19 @@
     <div>
         <p>Gestion</p>
         <div class="seach"> 
-            <input type="text" (value)="redeemTicketCode" class="form-control" placeholder="Introducir codigo de ticket">
-            <button (click)="redeemTicket()" class="btn btn-info">Canjear ticket</button>
+            <input type="text" [(ngModel)]="redeemTicketCode" class="form-control" placeholder="Introducir codigo de ticket">
+            <button (click)="redeemTicket()" [disabled]="loading" class="btn btn-primary">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Canjear ticket
+            </button>
         </div>
     </div>
 
     <div>
         <div class="seach">
-            <input type="text" class="form-control" placeholder="Buscar auto bus">
-            <button class="btn btn-info">
+            <input type="text" [(ngModel)]="cancelBusCode" class="form-control" placeholder="Buscar auto bus">
+            <button (click)="CancelBus()" [disabled]="loading3" class="btn btn-primary">
+                <span *ngIf="loading3" class="spinner-border spinner-border-sm mr-1"></span>
                 Cancelar bus
             </button>
         </div>
@@ -18,12 +22,15 @@
 
     <div>
         <div class="seach">
-            <input type="text" class="form-control" placeholder="Buscar Usuario">
-            <button class="btn btn-info">
+            <input type="text" [(ngModel)]="changeUserRolMail" class="form-control" placeholder="Buscar Usuario">
+            <button (click)="ChangeUserRol()" [disabled]="loading2" class="btn btn-primary">
+                <span *ngIf="loading2" class="spinner-border spinner-border-sm mr-1"></span>
                 Canbial rol de usuario
             </button>
         </div>
     </div>
+    <div *ngIf="error" class="alert alert-danger mt-3 mb-2">{{error}}</div>
+    <div *ngIf="success" class="alert alert-success mt-3 mb-2">{{success}}</div>
 </div>
 
 

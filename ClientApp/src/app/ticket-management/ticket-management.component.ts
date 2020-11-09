@@ -15,9 +15,56 @@ export class TicketManagementComponent implements OnInit {
   ngOnInit() {
   }
 
-  redeemTicketCode: number
+  error: string
+  loading = false
+  success: string
+  redeemTicketCode: string
 
   redeemTicket(){console.log(this.redeemTicketCode)
-    //this.ticketManagementService.redeemTicket(2).subscribe(x => {}, error => console.log(error))
+    this.loading = true
+    this.ticketManagementService.redeemTicket(this.redeemTicketCode).subscribe(x => {
+      this.loading = false
+      this.success = "Ticket canjedo"
+      setTimeout(()=>this.success = null, 3000)
+    }, error =>{ 
+      this.loading = false
+      this.error=error.error.message
+      console.error(error)
+      setTimeout(()=>this.error = null, 3000)
+    })
+  }
+
+  loading2 = false
+  changeUserRolMail: string
+  ChangeUserRol(){
+    console.log(this.changeUserRolMail)
+    this.loading2 = true
+    this.ticketManagementService.changeUserRol(this.changeUserRolMail).subscribe(x => {
+      this.loading2 = false
+      this.success = "Rol de usuario cambiado"
+      setTimeout(()=>this.success = null, 3000)
+    }, error =>{ 
+      this.loading2 = false
+      this.error=error.error.message
+      console.error(error)
+      setTimeout(()=>this.error = null, 3000)
+    })    
+  }
+
+  cancelBusCode: string
+  loading3 = false
+  CancelBus(){
+    console.log(this.cancelBusCode)
+    this.loading3 = true
+    this.ticketManagementService.cancelBus(this.cancelBusCode).subscribe(x => {
+      this.loading3 = false
+      this.success = "Bus cancelado"
+      setTimeout(()=>this.success = null, 3000)
+    }, error =>{ 
+      this.loading3 = false
+      this.error=error.error.message
+      console.error(error)
+      setTimeout(()=>this.error = null, 3000)
+    })
   }
 }

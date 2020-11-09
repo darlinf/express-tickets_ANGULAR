@@ -21,7 +21,7 @@
     <div class="myStyle-card">
         <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
         <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
-        <div class="myStyle-icon" *ngIf="ticket.status != 'Refund'">
+        <div class="myStyle-icon" *ngIf="ticket.status != 'Refund' && ticket.status != 'Used'">
             <div role="button" (click)="refundDecition(ticket)" >
                 <i class="fa fa-retweet"  aria-hidden="true"></i>
             </div>
