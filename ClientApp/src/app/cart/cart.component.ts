@@ -23,9 +23,8 @@ export class CartComponent implements OnInit {
     this.clickEventsubscription = this.sharedService.getClickEvent().subscribe({
       
       next: (v) => {
-        if(v == "bookTicket"){
+        if(v == "bookTicket" || v == "paidTicket"){
           this.getTicket()
-          console.log(`observerA: ${v}`)
         }
       }
     })
@@ -41,17 +40,13 @@ export class CartComponent implements OnInit {
   getTicket(){
     this.ticketService.getAllBy(TicketStatus.Pending, this.currentUser.id).subscribe(x => {
       this.ticketsPending = x
-
-        this.bagNumber = x.length
-        console.log(this.bagNumber)
-     
+      this.bagNumber = x.length
       this.onBagNumber.emit(this.bagNumber);
     })
   }
 
   closeWindow(){
     let myTag = this.el.nativeElement.querySelector(".close-window")
-    console.log(myTag)
     myTag.classList.remove('show')
   }
   

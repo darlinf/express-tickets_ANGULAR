@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Security.Claims;
 using System.Text;
 using Atiendeme.Data;
@@ -82,6 +84,26 @@ namespace WebApi.Services
         public Ticket GetById(int id)
         {
             return _context.Tickets.FirstOrDefault(x => x.Id == id);
+        }
+
+        public void SendMail(string EmailDestination, string Body)
+        {//SendMail("zkiduxi@gmail.com", "<b>Esto</b> ddddododd");
+            string EmailOrigin = "ticketexpress053@gmail.com";
+            string Password = "Darlin2020";
+
+            MailMessage oMailMessage = new MailMessage(EmailOrigin, EmailDestination, "Factura Ticket Express", Body);
+
+            oMailMessage.IsBodyHtml = true;
+
+            SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+            oSmtpClient.EnableSsl = true;
+            oSmtpClient.UseDefaultCredentials = false;
+            oSmtpClient.Host = "smtp.gmail.com";
+            oSmtpClient.Port = 587;
+            oSmtpClient.Credentials = new NetworkCredential(EmailOrigin, Password);
+
+            oSmtpClient.Send(oMailMessage);
+            oSmtpClient.Dispose();
         }
     }
 }

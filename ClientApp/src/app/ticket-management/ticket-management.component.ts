@@ -1,10 +1,25 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { TicketManagementServiceService } from '../_services/ticket-management-service.service';
 
 @Component({
   selector: 'app-ticket-management',
   templateUrl: './ticket-management.component.html',
-  styleUrls: ['./ticket-management.component.scss']
+  styleUrls: ['./ticket-management.component.scss'],
+  animations:[
+    trigger('enterState',[
+      state('void',style({
+        //transform: 'translateX(-100%)',
+        opacity: 0
+      })),
+      transition(':enter',[
+        animate(300, style({
+          //transform: 'translateX(0)',
+          opacity: 1
+        }))
+      ])
+    ])
+  ]
 })
 export class TicketManagementComponent implements OnInit {
 
@@ -20,7 +35,7 @@ export class TicketManagementComponent implements OnInit {
   success: string
   redeemTicketCode: string
 
-  redeemTicket(){console.log(this.redeemTicketCode)
+  redeemTicket(){
     this.loading = true
     this.ticketManagementService.redeemTicket(this.redeemTicketCode).subscribe(x => {
       this.loading = false
@@ -37,7 +52,6 @@ export class TicketManagementComponent implements OnInit {
   loading2 = false
   changeUserRolMail: string
   ChangeUserRol(){
-    console.log(this.changeUserRolMail)
     this.loading2 = true
     this.ticketManagementService.changeUserRol(this.changeUserRolMail).subscribe(x => {
       this.loading2 = false
@@ -54,7 +68,6 @@ export class TicketManagementComponent implements OnInit {
   cancelBusCode: string
   loading3 = false
   CancelBus(){
-    console.log(this.cancelBusCode)
     this.loading3 = true
     this.ticketManagementService.cancelBus(this.cancelBusCode).subscribe(x => {
       this.loading3 = false

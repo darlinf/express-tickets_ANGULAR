@@ -10,6 +10,10 @@ export class TicketService {
     
   }
 
+  sendMail(mail: any){console.log(mail)
+    return this.http.post<any>(this.baseUrl + 'Ticket/SendMail', mail);
+  } 
+
   create(newTicket: any){
     return this.http.post<any>(this.baseUrl + 'ticket', newTicket);
   } 

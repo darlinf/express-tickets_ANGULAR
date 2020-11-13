@@ -22,7 +22,7 @@ export class AuthenticationService {
 
     login(Mail: string, Password: string) {
         return this.http.post<any>(this.baseUrl + "users/authenticate", { Password,Mail })
-            .pipe(map(user => { console.log(user)
+            .pipe(map(user => {
                 // login successful if there's a jwt token in the response
                 if (user && user.token) {
                     // store user details and jwt token in local storage to keep user logged in between page refreshes

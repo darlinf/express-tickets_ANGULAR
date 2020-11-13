@@ -51,8 +51,7 @@ export class EditTicketComponent implements OnInit {
       
       this.ticketService.getById(id).subscribe(x => {
         this.ticketsPending = x 
-        console.log(x)
-      }) 
+      }, e => console.error(e)) 
     });
   } 
   
@@ -122,7 +121,6 @@ export class EditTicketComponent implements OnInit {
   choiceHours(i: number) {
     if (this.day.today[0] <= i + 1)
       this.showHours = true
-    console.log(this.day.today[0] == null)
   }
 
   renderDate() {

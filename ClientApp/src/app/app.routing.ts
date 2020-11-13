@@ -12,6 +12,7 @@ import { PayComponent } from './pay/pay.component';
 import { PayResurtComponent } from './pay-resurt/pay-resurt.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
+import { BillingComponent } from './billing/billing.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -59,7 +60,15 @@ const routes: Routes = [
         data: { roles: [Role.Admin] }
     }, 
     {
+        path: 'facturacion',
+        component:  BillingComponent,
+        canActivate: [AuthGuard],
+        data: { roles: [Role.User] }
+    }, 
+    {
         path: 'ReservarTicket',
+        canActivate: [AuthGuard],
+        data: { roles: [Role.User] },
         component: BookTicketsComponent
     },
     {

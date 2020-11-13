@@ -1,4 +1,6 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { User } from '../_models';
 import { TicketStatus } from '../_models/TicketStatus';
@@ -9,14 +11,29 @@ import { TicketService } from '../_services/ticket.service';
 @Component({
   selector: 'app-pay',
   templateUrl: './pay.component.html',
-  styleUrls: ['./pay.component.scss']
+  styleUrls: ['./pay.component.scss'],
+  animations:[
+    trigger('enterState',[
+      state('void',style({
+       // transform: 'translateX(100%)',
+        opacity: 0
+      })),
+      transition(':enter',[
+        animate(300, style({
+          //transform: 'translateX(0)',
+          opacity: 1
+        }))
+      ])
+    ])
+  ]
 })
 export class PayComponent implements OnInit {
 
   constructor(
     private authenticationService: AuthenticationService,
     private ticketService: TicketService,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    private router: Router,
   ) { }
 
   ngOnInit() {
@@ -38,8 +55,8 @@ export class PayComponent implements OnInit {
       x.status = TicketStatus.Paid
     })
     this.ticketService.editList(this.ticketsPending).subscribe(x => {
-      console.log("eee")
       this.sharedService.sendClickEvent("paidTicket");
+      this.router.navigate(['/facturacion']);
     }, e => console.error(e))
   }
 

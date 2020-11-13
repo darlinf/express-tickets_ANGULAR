@@ -13,7 +13,7 @@ using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
-    //[Authorize]
+    [Authorize(Roles = Role.Admin)]
     [ApiController]
     [Route("[controller]")]
     public class TicketManagementController : ControllerBase

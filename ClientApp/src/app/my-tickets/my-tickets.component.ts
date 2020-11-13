@@ -28,8 +28,6 @@ export class MyTicketsComponent implements OnInit {
       next: (v) => {
         if(v == "paidTicket"){
           this.getTicketBy(TicketStatus.Paid)
-          console.log(`observerA: ${v}`)
-          
         }
       }
     })
@@ -37,14 +35,12 @@ export class MyTicketsComponent implements OnInit {
 
   closeWindow(){
     let myTag = this.el.nativeElement.querySelector(".close-window")
-    console.log(myTag)
     myTag.classList.remove('show')
   }
 
   refund(){
     this.ticket.status = TicketStatus.Refund
     this.ticketService.edit(this.ticket).subscribe(x => {
-      console.log("dddd")
       this.showSwitch = false
       this.getTicketBy(TicketStatus.Paid)
     }, e => console.log(e))
@@ -64,11 +60,9 @@ export class MyTicketsComponent implements OnInit {
   getTicketBy(x){
     this.ticketService.getAllBy(x, this.currentUser.id).subscribe(x => {
       this.ticketsPending = x
-      console.log(this.ticketsPending)
       this.bagNumber = x.length
-      console.log(this.bagNumber)
       this.onBagNumber2.emit(this.bagNumber);
-    })
+    }, e => console.log(e))
   }
 
   bagNumber = 0

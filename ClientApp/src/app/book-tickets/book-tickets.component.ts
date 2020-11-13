@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import {
   Component,
   ElementRef,
@@ -28,7 +29,21 @@ declare const jsCalendar: any;
 @Component({
   selector: 'app-book-tickets',
   templateUrl: './book-tickets.component.html',
-  styleUrls: ['./book-tickets.component.scss']
+  styleUrls: ['./book-tickets.component.scss'],
+  animations:[
+    trigger('enterState',[
+      state('void',style({
+       // transform: 'translateX(100%)',
+        opacity: 0
+      })),
+      transition(':enter',[
+        animate(300, style({
+          //transform: 'translateX(0)',
+          opacity: 1
+        }))
+      ])
+    ])
+  ]
 })
 export class BookTicketsComponent implements OnInit {
 
@@ -97,7 +112,6 @@ export class BookTicketsComponent implements OnInit {
   choiceHours(i: number) {
     if (this.day.today[0] <= i + 1)
       this.showHours = true
-    console.log(this.day.today[0] == null)
   }
 
   renderDate() {
@@ -135,7 +149,6 @@ export class BookTicketsComponent implements OnInit {
 
   removeStyles(){
     let myTag = this.el.nativeElement.querySelector(".remove-style")
-    console.log(myTag)
     myTag.classList.remove('show')
   }
 

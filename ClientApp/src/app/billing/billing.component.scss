@@ -1,0 +1,28 @@
+.billing{
+    display: flex;
+    justify-content: center;
+    height: 100%;
+    >div{
+        padding: 10px;
+        width: 500px;
+        height: 200px;
+        background-color: #F6F5F1; 
+        align-items: center;
+        p:first-child{
+            font-size: 30px;
+        }
+        p{
+            text-align: center;
+        }
+        div:last-child{
+            display: flex;
+            justify-content: center;
+            div{
+                width: 300px;
+                button:last-child{
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+}

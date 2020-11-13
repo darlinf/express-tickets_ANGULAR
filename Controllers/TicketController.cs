@@ -13,12 +13,12 @@ using System.Collections.Generic;
 
 namespace WebApi.Controllers
 {
-    //[Authorize]
+    [Authorize]
     [ApiController]
     [Route("[controller]")]
     public class TicketController : ControllerBase
     {
-       
+
         private ITicketService _ticketService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
@@ -32,7 +32,8 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Ticket NewTicket){
+        public IActionResult Create(Ticket NewTicket)
+        {
             try
             {
                 // save 
@@ -47,40 +48,52 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{Id}")]
-        public IActionResult GetAll(int Id){
+        public IActionResult GetAll(int Id)
+        {
             var tickets = _ticketService.GetAll(Id);
             return Ok(tickets);
         }
 
         [HttpGet("GetById/{Id}")]
-        public IActionResult GetById(int id){
+        public IActionResult GetById(int id)
+        {
             var ticket = _ticketService.GetById(id);
             return Ok(ticket);
         }
-        
+
         [HttpGet("GetAllBy/{Status}/{Id}")]
-        public IActionResult GetAllBy(string Status, int Id){
+        public IActionResult GetAllBy(string Status, int Id)
+        {
             var tickets = _ticketService.GetAllBy(Status, Id);
             return Ok(tickets);
         }
 
         [HttpDelete("{Id}")]
-        public IActionResult Delete(int Id){
+        public IActionResult Delete(int Id)
+        {
             _ticketService.Delete(Id);
             return Ok();
         }
 
         [HttpPut]
-        public IActionResult Edit(Ticket editTicket){
+        public IActionResult Edit(Ticket editTicket)
+        {
             _ticketService.Edit(editTicket);
             return Ok();
         }
 
+        [HttpPost("SendMail")]
+        public IActionResult SendMail(MailModel Mail)
+        {
+            _ticketService.SendMail(Mail.EmailDestination, Mail.Body);
+            return Ok();
+        }
+
         [HttpPut("EditList")]
-        public IActionResult EditList(IEnumerable<Ticket> editTicket){
+        public IActionResult EditList(IEnumerable<Ticket> editTicket)
+        {
             _ticketService.EditList(editTicket);
             return Ok();
         }
     }
 }
-   

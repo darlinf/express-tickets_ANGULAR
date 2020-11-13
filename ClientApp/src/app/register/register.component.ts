@@ -1,3 +1,4 @@
+import { trigger, state, style, transition, animate } from '@angular/animations';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -7,7 +8,21 @@ import { AuthenticationService } from '../_services';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
-  styleUrls: ['./register.component.css']
+  styleUrls: ['./register.component.css'],
+  animations:[
+    trigger('enterState',[
+      state('void',style({
+       // transform: 'translateX(100%)',
+        opacity: 0
+      })),
+      transition(':enter',[
+        animate(300, style({
+          //transform: 'translateX(0)',
+          opacity: 1
+        }))
+      ])
+    ])
+  ]
 })
 export class RegisterComponent implements OnInit {
 
@@ -45,16 +60,13 @@ export class RegisterComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.loginForm.controls; }
 
-  onSubmit() {console.log(this.loginForm.value)
+  onSubmit() {
       this.submitted = true;
 
       // stop here if form is invalid
       if (this.loginForm.invalid) {
           return;
       }
-
-      console.log()
-
       
       this.loading = true;
       this.authenticationService.register(this.loginForm.value)
@@ -62,7 +74,6 @@ export class RegisterComponent implements OnInit {
           .subscribe(
               data => {
                 //this.router.navigate([this.returnUrl]);
-                console.log(this.loginForm.value)
                 this.authenticationService.login(this.loginForm.value.mail, this.loginForm.value.password)
                 .pipe(first())
                 .subscribe(

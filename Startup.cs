@@ -42,7 +42,16 @@ namespace express_tickets
             services.AddDbContext<DataContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("expressTickets")));
 
-            services.AddCors();
+            services.AddCors(options =>
+        {
+            options.AddPolicy(name: "MyPolicy",
+                builder =>
+                {
+                    builder.WithOrigins("*")
+                            .WithMethods("PUT", "DELETE", "GET");
+                });
+        });
+
             services.AddAutoMapper(typeof(Startup));
             services.AddControllers();
 

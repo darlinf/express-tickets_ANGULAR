@@ -20,6 +20,9 @@ import { PayResurtComponent } from './pay-resurt/pay-resurt.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { FooterComponent } from './footer/footer.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JwtInterceptor } from './_helpers';
+import { BillingComponent } from './billing/billing.component';
 
 @NgModule({  
   declarations: [
@@ -38,6 +41,7 @@ import { FooterComponent } from './footer/footer.component';
     EditTicketComponent,
     UserEditComponent,
     FooterComponent,
+    BillingComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -45,8 +49,11 @@ import { FooterComponent } from './footer/footer.component';
     FormsModule,
     appRoutingModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

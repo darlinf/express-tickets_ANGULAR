@@ -7,6 +7,7 @@ using Microsoft.Extensions.Logging;
 
 namespace express_tickets.Controllers
 {
+    
     [ApiController]
     [Route("[controller]")]
     public class WeatherForecastController : ControllerBase

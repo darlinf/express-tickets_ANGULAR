@@ -18,5 +18,6 @@ namespace Atiendeme.Data.Interfaces
         void EditList(IEnumerable<Ticket> ticketToEdit);
         void Edit(Ticket ticketToEdit);
         Ticket GetById(int id);
+        void SendMail(string EmailDestination, string Body);
     }
 }
