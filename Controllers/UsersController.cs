@@ -8,6 +8,7 @@ using WebApi.Dtos;
 using AutoMapper;
 using WebApi.Helpers;
 using Microsoft.Extensions.Options;
+using express_tickets.Models;
 
 namespace WebApi.Controllers
 {
@@ -16,7 +17,7 @@ namespace WebApi.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-       
+
         private IUserService _userService;
         private IMapper _mapper;
         private readonly AppSettings _appSettings;
@@ -50,6 +51,57 @@ namespace WebApi.Controllers
                 return BadRequest(new { message = ex.Message });
             }
         }
+
+        [AllowAnonymous]
+        [HttpPost("PasswordRecovery")]
+        public IActionResult PasswordRecovery(PasswordRecoveryModel passwordRecoveryModel)
+        {
+            try
+            {
+                // save 
+                _userService.PasswordRecovery(passwordRecoveryModel.EmailDestination, passwordRecoveryModel.UrlToSend);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpGet("IfTokenValid/{token}")]
+        public IActionResult IfTokenValid(string token)
+        {
+            try
+            {
+                _userService.IfTokenValid(token);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
+        [AllowAnonymous]
+        [HttpPost("PasswordRecoveryFinish")]
+        public IActionResult PasswordRecoveryFinish(PasswordRecoveryFinishModel passwordRecoveryFinishModel)
+        {
+            try
+            {
+                // save 
+                _userService.PasswordRecoveryFinish(passwordRecoveryFinishModel.NewPassword, passwordRecoveryFinishModel.Token);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
+        }
+
 
         [AllowAnonymous]
         [HttpPost("authenticate")]

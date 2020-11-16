@@ -87,7 +87,7 @@ namespace WebApi.Services
         }
 
         public void SendMail(string EmailDestination, string Body)
-        {//SendMail("zkiduxi@gmail.com", "<b>Esto</b> ddddododd");
+        {
             string EmailOrigin = "ticketexpress053@gmail.com";
             string Password = "Darlin2020";
 

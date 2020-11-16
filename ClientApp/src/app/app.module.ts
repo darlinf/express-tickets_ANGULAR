@@ -23,6 +23,7 @@ import { FooterComponent } from './footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { JwtInterceptor } from './_helpers';
 import { BillingComponent } from './billing/billing.component';
+import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 
 @NgModule({  
   declarations: [
@@ -42,6 +43,7 @@ import { BillingComponent } from './billing/billing.component';
     UserEditComponent,
     FooterComponent,
     BillingComponent,
+    RecoveryPasswordComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -49,7 +51,8 @@ import { BillingComponent } from './billing/billing.component';
     FormsModule,
     appRoutingModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

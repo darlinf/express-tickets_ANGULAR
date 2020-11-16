@@ -33,6 +33,9 @@ export class MyTicketsComponent implements OnInit {
     })
   }
 
+  showQr(){
+  }
+
   closeWindow(){
     let myTag = this.el.nativeElement.querySelector(".close-window")
     myTag.classList.remove('show')

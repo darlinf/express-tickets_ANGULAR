@@ -1,4 +1,4 @@
-﻿import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule } from '@angular/router';
 
 import { AuthGuard } from './_helpers';
 import { Role } from './_models';
@@ -13,6 +13,7 @@ import { PayResurtComponent } from './pay-resurt/pay-resurt.component';
 import { EditTicketComponent } from './edit-ticket/edit-ticket.component';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { BillingComponent } from './billing/billing.component';
+import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 
 const routes: Routes = [
     { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -72,12 +73,18 @@ const routes: Routes = [
         component: BookTicketsComponent
     },
     {
-        path: 'login',
-        component: LoginComponent
-    },{
-        path: 'registrarse',
-        component: RegisterComponent
+        path: 'recuperarContrasena/:token',
+        component: RecoveryPasswordComponent
     },
+    {
+        path: 'recuperarContrasena',
+        component: RecoveryPasswordComponent
+    },
+    {
+      path: 'registrarse',
+      component: RegisterComponent
+    },
+
 
     // otherwise redirect to home
     { path: '**', redirectTo: '' }

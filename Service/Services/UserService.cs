@@ -2,11 +2,15 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net.Mail;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Atiendeme.Data;
 using Atiendeme.Data.Entities;
 using Atiendeme.Data.Interfaces;
+using express_tickets.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using WebApi.Entities;
@@ -14,16 +18,10 @@ using WebApi.Helpers;
 
 namespace WebApi.Services
 {
-  
+
 
     public class UserService : IUserService
     {
-        // users hardcoded for simplicity, store in a db with hashed passwords in production applications
-        /*private List<User> _users = new List<User>
-        { 
-            new User { Id = 1, FirstName = "Admin", LastName = "User", Username = "admin", Password = "admin", Role = Role.Admin },
-            new User { Id = 2, FirstName = "Normal", LastName = "User", Username = "user", Password = "user", Role = Role.User } 
-        };*/
 
         private readonly AppSettings _appSettings;
         DataContext _context;
@@ -53,7 +51,7 @@ namespace WebApi.Services
             var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new Claim[] 
+                Subject = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Name, user.Id.ToString()),
                     new Claim(ClaimTypes.Role, user.Role)
@@ -71,7 +69,7 @@ namespace WebApi.Services
             return _context.Users.WithoutPasswords();
         }
 
-        public User GetById(int id) 
+        public User GetById(int id)
         {
             var user = _context.Users.FirstOrDefault(x => x.Id == id);
             return user.WithoutPassword();
@@ -174,5 +172,91 @@ namespace WebApi.Services
 
             return true;
         }
+
+        public void PasswordRecovery(string Mail, string urlToSend)
+        {
+            var user = _context.Users.FirstOrDefault(x => x.Mail == Mail);
+            if (user == null)
+            {
+                throw new AppException("El correo no es valido");
+            }
+
+            string token = GetSha256(Guid.NewGuid().ToString());
+
+            user.Token = token;
+            _context.Entry(user).State = EntityState.Modified;
+            _context.SaveChanges();
+            SendEmail(user.Mail, token, urlToSend);
+        }
+
+        public void IfTokenValid(string Token)
+        {
+            var user = _context.Users.Where(x => x.Token == Token).FirstOrDefault();
+            if (user == null) throw new AppException("El token no es valido");
+        }
+
+        public void PasswordRecoveryFinish(string NewPassword, string Token)
+        {
+            var user = _context.Users.Where(x => x.Token == Token).FirstOrDefault();
+
+            if (user == null) throw new AppException("El token no es valido");
+
+            if (!string.IsNullOrWhiteSpace(NewPassword))
+            {
+                byte[] passwordHash, passwordSalt;
+                CreatePasswordHash(NewPassword, out passwordHash, out passwordSalt);
+
+                user.PasswordHash = passwordHash;
+                user.PasswordSalt = passwordSalt;
+                user.Token = null;
+                _context.Entry(user).State = EntityState.Modified;
+                _context.SaveChanges();
+            }
+            else
+            {
+                throw new AppException("La contrase�a no es valida");
+            }
+        }
+
+        #region HELPERS
+        private string GetSha256(string str)
+        {
+            SHA256 sha256 = SHA256Managed.Create();
+            ASCIIEncoding encoding = new ASCIIEncoding();
+            byte[] stream = null;
+            StringBuilder sb = new StringBuilder();
+            stream = sha256.ComputeHash(encoding.GetBytes(str));
+            for (int i = 0; i < stream.Length; i++) sb.AppendFormat("{0:x2}", stream[i]);
+            return sb.ToString();
+        }
+
+        private void SendEmail(string EmailDestino, string token, string urlToSend)
+        {
+            string mailPart1 = "<div class=''><div class='aHl'></div><div id=':146' tabindex='-1'></div><div id=':14h' class='ii gt'><div id=':14i' class='a3s aiL '><div class='adM'> </div><div><div class='adM'> </div><table width='660' align='center' cellpadding='0' cellspacing='0' bgcolor='#f2f2f2'> <tbody><tr> <td colspan='2' bgcolor='#e4e4e4'><img src='https://contents.smsupermalls.com/data/uploads/2020/07/SPI_TICKET_EXPRESS.png' width='212' height='200' class='CToWUd'><br></td> <td width='88' bgcolor='#e4e4e4'> </td> </tr> <tr> <td width='88'> </td> <td style='font-family:Calibri;font-size:11pt;color:#282828;line-height:14pt;padding-top:11pt;padding-right:50pt'> <p>Si desea restablecer la contraseña de su cuenta de Ticket Express, por favor, siga el enlace de más abajo en las próximas 24 horas: </p> <p><a href='";
+            string mailPart2 = "' target='_blank' data-saferedirecturl='https://www.google.com/url?q=https://my.splashtop.com/reset?reset_password_token%3DVqeyHAL4zGbbUgDPLZaU&source=gmail&ust=1605572058961000&usg=AFQjCNFb1cebyZoZNlkc5zTtJJQEweS0iw'>Click para recuperar contrasena.</a></p> <p>Si no ha solicitado restablecer la contraseña, ignore el mensaje.</p> <p>Gracias.</p> <p>- El equipo de Ticket Express</p> </td> <td> </td> </tr> <tr> <td colspan='3'> </td> </tr> <tr> <td height='6' colspan='3'> <table cellpadding='0' cellspacing='0'> <tbody><tr> <td width='220' height='6' bgcolor='#519a00'></td> <td width='220' height='6' bgcolor='#562a93'></td> <td width='220' height='6' bgcolor='#004aa2'></td> </tr> </tbody></table> </td> </tr> </tbody></table><div class='yj6qo'></div><div class='adL'> </div></div><div class='adL'> </div></div></div><div id=':142' class='ii gt' style='display:none'><div id=':141' class='a3s aiL undefined'></div></div><div class='hi'></div></div>";
+
+            string EmailOrigen = "ticketexpress053@gmail.com";
+            string Contrasena = "Darlin2020";
+            string url = urlToSend + "/" + token;
+            var mailFinalPart = mailPart1 + url + mailPart2;
+
+            MailMessage oMailMessage = new MailMessage(EmailOrigen, EmailDestino, "Recuperacion de contrasena", mailFinalPart);
+
+            oMailMessage.IsBodyHtml = true;
+
+            SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+            oSmtpClient.EnableSsl = true;
+            oSmtpClient.UseDefaultCredentials = false;
+            oSmtpClient.Port = 587;
+            oSmtpClient.Credentials = new System.Net.NetworkCredential(EmailOrigen, Contrasena);
+
+            oSmtpClient.Send(oMailMessage);
+
+            oSmtpClient.Dispose();
+        }
+
+        #endregion
     }
+
+
 }
