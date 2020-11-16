@@ -1,11 +1,16 @@
 
 .date-choice-container{
-  >div{
+  div:first-child{
+    display: flex;
+    justify-content: space-between;
+    width: 330px;
+    margin-right: 5px;
+  }
     display: flex;
     align-items: center;
-  }
-  margin-top: 20px;
+    margin-top: 20px;
 }
+
 .myStyle-time { 
     > div{
     display: flex;
@@ -149,9 +154,9 @@ visibility: visible;
 
 
 .myStyle-form{
-  width: 550px;
+  width: 570px;
   margin: auto;
-  padding: 10px;
+  padding: 10px 10px 0 10px;
   >p{
     font-size: 24px;
     text-align: center;
@@ -213,6 +218,11 @@ visibility: visible;
   color: white;
 }
 
+.resetDayStyle{
+  background: white;
+  color: black;
+}
+
 .donate-now label {
   border: 1px solid #CCC;
   cursor: pointer;
@@ -221,4 +231,13 @@ visibility: visible;
 
 .donate-now label:hover {
   background: #DDD;
+}
+
+.active{
+  font-weight: 600 !important;
+  background-color: #2ecc70e0 !important;
+  color: white !important;
+
+  transition: all 0.3s ease; 
+  
 }

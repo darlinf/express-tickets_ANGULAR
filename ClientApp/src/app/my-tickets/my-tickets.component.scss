@@ -160,3 +160,13 @@
 .confirm-options > div > div:nth-child(2):hover{
     background: rgb(175, 29, 29);
 }
+
+.bshadow {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(5px 5px 5px #222222);
+    opacity: .5;
+  
+  }

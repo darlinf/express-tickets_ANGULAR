@@ -16,23 +16,20 @@
         
     <div class=" myStyle-card-container">
 
-    <ng-container *ngFor="let ticket of ticketsPending">
+    <ng-container *ngFor="let ticket of ticketsPending; let showQR = false">
         
-    <div class="myStyle-card">
+    <div class="myStyle-card" [id]="'content'+ticket.id">
         <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
         <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
         <div class="myStyle-icon" *ngIf="ticket.status != 'Refund' && ticket.status != 'Used'">
             <div role="button" (click)="refundDecition(ticket)" >
                 <i class="fa fa-retweet"  aria-hidden="true"></i>
             </div>
-            <div role="button" (click)="showQr()">
+            <div role="button" (click)="showQR = !showQR; scrollViewQr(ticket.id)">
                 <i class="fa fa-qrcode" aria-hidden="true"></i>
             </div>
-        <!--<div role="button" class="oo" (click)="closeWindow()" [routerLink]="['/editarTicket', ticket.id]" >
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </div>-->
-
         </div>
+        <qrcode class="bshadow" *ngIf="showQR" qrdata="{{ticket.code}}" [width]="1" [errorCorrectionLevel]="'M'"></qrcode>
     </div>
     </ng-container>
     <ng-container *ngIf="ticketsPending">
@@ -51,18 +48,8 @@
     </form>
 
     </div>
-    <!--
-    <div class="myStyle-button-switch">
-        <div role="button" class="myStyle-button">
-            Pagados
-        </div>
-        <div role="button"> 
-            Reembolsados
-        </div> 
-        <div role="button"> 
-            Usados
-        </div>
-    </div> 
--->
+  
+    
+
 
 

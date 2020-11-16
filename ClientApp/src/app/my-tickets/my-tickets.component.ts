@@ -33,9 +33,6 @@ export class MyTicketsComponent implements OnInit {
     })
   }
 
-  showQr(){
-  }
-
   closeWindow(){
     let myTag = this.el.nativeElement.querySelector(".close-window")
     myTag.classList.remove('show')
@@ -53,6 +50,11 @@ export class MyTicketsComponent implements OnInit {
     this.ticket = ticket
     this.showSwitch = true
     this.ticketForDelete = ticket.code
+  }
+
+  scrollViewQr(id){
+    var elmnt = document.getElementById("content"+id);
+    elmnt.scrollIntoView();
   }
 
   ticket: any

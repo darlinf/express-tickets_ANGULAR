@@ -1,25 +1,26 @@
 <div @enterState class="myStyle-container-calendar">
 
-<form [formGroup]="form" (ngSubmit)="onSubmit(form.value)" >
+  <form [formGroup]="form" (ngSubmit)="onSubmit(form.value)">
     <div class="form-row myStyle-form align-items-center card">
       <p>Reservar ticket</p>
 
       <div class="col-auto my-1">
-        <label class="mr-sm-2" >Codigo del ticket</label>
-        <input type="text" class="form-control mr-sm-2" formControlName="code" [value]="'#'+ticketCode" >
+        <label class="mr-sm-2">Codigo del ticket</label>
+        <input type="text" class="form-control mr-sm-2" formControlName="code" [value]="'#'+ticketCode">
       </div>
 
       <div class="col-auto my-1">
         <label class="mr-sm-2" for="inlineFormCustomSelect">Desde</label>
-        <select class="custom-select mr-sm-2" (change)="changeDisabled('from', 'place')" formControlName="from" id="inlineFormCustomSelect">
+        <select class="custom-select mr-sm-2" (change)="changeDisabled('from', 'place')" formControlName="from"
+          id="inlineFormCustomSelect">
           <option selected></option>
-          <option *ngFor="let site of sites"  [ngValue]="site">{{site}}</option>
+          <option *ngFor="let site of sites" [ngValue]="site">{{site}}</option>
         </select>
       </div>
 
       <div class="col-auto my-1">
         <label class="mr-sm-2" for="inlineFormCustomSelect">Hasta</label>
-        <select formControlName="place"  class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        <select formControlName="place" class="custom-select mr-sm-2" id="inlineFormCustomSelect">
           <option selected></option>
           <ng-container *ngFor="let site of sites">
             <option *ngIf="form.controls.from.value != site" [ngValue]="site">{{site}}</option>
@@ -38,46 +39,56 @@
           <option value="5">Cinco</option>
         </select>
       </div>
-    
-    <div class="col-auto my-1 date-choice-container">
-      <label class="mr-sm-2">Elegir fecha</label>
-      <div>
-      <ul class="donate-now">
-        <ng-container *ngFor="let date of dates2">
-        <li class="date-f" (click)="dateElect = date" (change)="isAllValid = true">
-          <input type="radio" [id]="date.day" name="amount" />
-          <label [for]="date.day">{{date.day}}</label>
-          <span class="date-f-tooptip" >{{date.day}} {{date.month}} {{date.year}}</span>
-        </li>
-      </ng-container>
-      </ul>
-      <div>
-        Fecha: <b *ngIf="dateElect">{{dateElect.day}} {{dateElect.month}} {{dateElect.year}}</b>
-      </div>
-    </div>
-    </div>
 
-    <div  class="myStyle-time col-auto my-1">
-    <label class="mr-sm-2" for="inlineFormCustomSelect">Selecionar hora</label>
-    <div class="btn-group-toggle" data-toggle="buttons">
-        <label class="btn btn-light">
-          <input type="radio" formControlName="hour" name="hour" id="option1" value="06:00" autocomplete="off"> 6:00 AM
-        </label>
-        <label class="btn btn-light">
-          <input type="radio" formControlName="hour" name="hour" id="option2" value="10:00" autocomplete="off"> 10:00 AM
-        </label>
-        <label class="btn btn-light">
-          <input type="radio" formControlName="hour" name="hour" id="option3" value="14:00" autocomplete="off"> 2:00 PM
-        </label>
-        <label class="btn btn-light">
-          <input type="radio" formControlName="hour" name="hour" id="option3" value="18:00" autocomplete="off"> 6:00 PM
-        </label>
+      <div class="col-auto my-1 ">
+        <label class="mr-sm-2" for="inlineFormCustomSelect">Elegir fecha</label>
+        <div class="date-choice-container">
+          <div class="btn-group-toggle" data-toggle="buttons">
+            <ng-container *ngFor="let date of dates2">
+              <label (click)="dateElect = date" (change)="isAllValid = true"
+                class="btn btn-light remove-class-active date-f">
+                <input type="radio" name="hour" value="06:00" autocomplete="off"> {{date.day}}
+                <span class="date-f-tooptip">{{date.day}} {{date.month}} {{date.year}}</span>
+              </label>
+            </ng-container>
+          </div>
+          <div>
+            Fecha: <b *ngIf="dateElect">{{dateElect.day}} {{dateElect.month}} {{dateElect.year}}</b>
+          </div>
+        </div>
+      </div>
+
+      <div class="myStyle-time col-auto my-1">
+        <label class="mr-sm-2" for="inlineFormCustomSelect">Selecionar hora</label>
+        <div class="btn-group-toggle" data-toggle="buttons">
+          <label class="btn btn-light remove-class-active">
+            <input type="radio" formControlName="hour" name="hour" id="option1" value="06:00" autocomplete="off"> 6:00
+            AM
+          </label>
+          <label class="btn btn-light remove-class-active">
+            <input type="radio" formControlName="hour" name="hour" id="option2" value="10:00" autocomplete="off"> 10:00
+            AM
+          </label>
+          <label class="btn btn-light remove-class-active">
+            <input type="radio" formControlName="hour" name="hour" id="option3" value="14:00" autocomplete="off"> 2:00
+            PM
+          </label>
+          <label class="btn btn-light remove-class-active">
+            <input type="radio" formControlName="hour" name="hour" id="option3" value="18:00" autocomplete="off"> 6:00
+            PM
+          </label>
+        </div>
+
+      </div>
+      <div class="col-auto my-1 add-card">
+        <button class="btn btn-success" [disabled]="loading" [disabled]="!form.valid || !isAllValid">
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+          Agregar al carito
+        </button>
+      </div>
+      <div *ngIf="error" class="alert alert-danger" style="margin-bottom: 5px;">{{error}}</div>
+      <div *ngIf="success" class="alert alert-success" style="margin-bottom: 5px;">{{success}}</div>
     </div>
     
-    </div>
-    <div  class="col-auto my-1 add-card">
-      <button class="btn btn-success" [disabled]="!form.valid || !isAllValid" >Agregar al carito</button>
-    </div>
-    </div>
   </form>
 </div>

@@ -25,6 +25,8 @@ import { JwtInterceptor } from './_helpers';
 import { BillingComponent } from './billing/billing.component';
 import { RecoveryPasswordComponent } from './recovery-password/recovery-password.component';
 
+import { QRCodeModule } from 'angularx-qrcode';
+
 @NgModule({  
   declarations: [
     MyTicketsComponent,
@@ -52,7 +54,7 @@ import { RecoveryPasswordComponent } from './recovery-password/recovery-password
     appRoutingModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    
+    QRCodeModule
   ],
   providers: [
     {provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true }

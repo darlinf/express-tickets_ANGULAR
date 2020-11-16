@@ -74,6 +74,7 @@ export class BookTicketsComponent implements OnInit {
       place: new FormControl({value: '',disabled: true}, Validators.required)
     });
     this.ticketCode = Math.round(Math.random() * 100000)
+    this.dateElect = null
    }
 
   changeDisabled(toCondition, toChange) {
@@ -91,7 +92,7 @@ export class BookTicketsComponent implements OnInit {
               this.month[this.dateElect.month] + "-" +
               day2 + "T" +
               e.hour + ":00"
-
+    this.loading = true
     this.ticketService.create({
       "from":e.from,
       "place":e.place,
@@ -102,11 +103,18 @@ export class BookTicketsComponent implements OnInit {
       "busId": 1,
       "code": this.ticketCode
     }).subscribe(x =>{ 
+      this.success = "Ticket agregado al carrito de compras!"
+      this.loading = false
       this.formCreate()
-      this.sharedService.sendClickEvent("bookTicket");
-    }, error => console.error(error))
-
-
+      setTimeout(()=>this.success = null, 3000)
+      this.sharedService.sendClickEvent("bookTicket");      
+      document.querySelectorAll(".remove-class-active").forEach((x)=>{x.classList.remove('active')})
+    }, error =>{ 
+      console.error(error)
+      this.error = "Error!"
+      this.loading = false
+      setTimeout(()=>this.error = null, 3000)
+    })
   }
 
   choiceHours(i: number) {
@@ -126,7 +134,7 @@ export class BookTicketsComponent implements OnInit {
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var mm2 = String(today.getMonth() + 2).padStart(2, '0');
     var yyyy = today.getFullYear();
-
+    
     var j = 0
     for (let i = parseInt(dd); i < parseInt(dd) + 7; i++) {
       if (i <= endDate) {
@@ -155,7 +163,7 @@ export class BookTicketsComponent implements OnInit {
 
 
 
-  
+  success: string
   currentUser: User;
   ticketCode = Math.round(Math.random() * 100000)
   form: FormGroup;
