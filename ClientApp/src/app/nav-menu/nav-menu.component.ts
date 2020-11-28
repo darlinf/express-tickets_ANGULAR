@@ -53,10 +53,15 @@ export class NavMenuComponent implements OnInit{
     bagNum2=0
     public bagNumber2(num) {
       this.bagNum2 = num
+      this.loading2 = true
     }
 
     bagNum=0
     public bagNumber(num) {
       this.bagNum = num
+      this.loading = true
     }
+
+    loading = false
+    loading2 = false
 }

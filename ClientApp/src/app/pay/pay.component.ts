@@ -51,15 +51,21 @@ export class PayComponent implements OnInit {
   }
 
   pay(){
+    this.loading = true
     this.ticketsPending.forEach( x => {
       x.status = TicketStatus.Paid
     })
     this.ticketService.editList(this.ticketsPending).subscribe(x => {
       this.sharedService.sendClickEvent("paidTicket");
       this.router.navigate(['/facturacion']);
-    }, e => console.error(e))
+      this.loading = false
+    }, e => {
+      console.error(e)
+      this.loading = false
+    })
   }
 
+  loading = false;
   total = 0
   currentUser: User
   ticketsPending: any

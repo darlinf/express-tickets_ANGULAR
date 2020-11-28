@@ -50,50 +50,106 @@ namespace WebApi.Controllers
         [HttpGet("{Id}")]
         public IActionResult GetAll(int Id)
         {
-            var tickets = _ticketService.GetAll(Id);
-            return Ok(tickets);
+            try
+            {
+                var tickets = _ticketService.GetAll(Id);
+                return Ok(tickets);
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpGet("GetById/{Id}")]
         public IActionResult GetById(int id)
         {
-            var ticket = _ticketService.GetById(id);
-            return Ok(ticket);
+            try
+            {
+                var ticket = _ticketService.GetById(id);
+                return Ok(ticket);
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpGet("GetAllBy/{Status}/{Id}")]
         public IActionResult GetAllBy(string Status, int Id)
         {
-            var tickets = _ticketService.GetAllBy(Status, Id);
-            return Ok(tickets);
+            try
+            {
+                var tickets = _ticketService.GetAllBy(Status, Id);
+                return Ok(tickets);
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpDelete("{Id}")]
         public IActionResult Delete(int Id)
         {
-            _ticketService.Delete(Id);
-            return Ok();
+            try
+            {
+                _ticketService.Delete(Id);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPut]
         public IActionResult Edit(Ticket editTicket)
         {
-            _ticketService.Edit(editTicket);
-            return Ok();
+            try
+            {
+                _ticketService.Edit(editTicket);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPost("SendMail")]
         public IActionResult SendMail(MailModel Mail)
         {
-            _ticketService.SendMail(Mail.EmailDestination, Mail.Body);
-            return Ok();
+            try
+            {
+                _ticketService.SendMail(Mail.EmailDestination, Mail.Body);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
 
         [HttpPut("EditList")]
         public IActionResult EditList(IEnumerable<Ticket> editTicket)
         {
-            _ticketService.EditList(editTicket);
-            return Ok();
+            try
+            {
+                _ticketService.EditList(editTicket);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                // return error message if there was an exception
+                return BadRequest(new { message = ex.Message });
+            }
         }
     }
 }

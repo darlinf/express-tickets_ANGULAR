@@ -4,20 +4,22 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace express_tickets.Data.Entities
+namespace express_tickets.Models
 {
-    public class Ticket
+    public class TicketModel
     {
         public int Id { get; set; }
+        [Required]
         public string From { get; set; }
+        [Required]
         public string Place { get; set; }
+        [Required]
         public DateTime Date { get; set; }
+        [Required]
         public string Status { get; set; }
+        [Required]
         public int Code { get; set; }
+        [Required]
         public int Quantity { get; set; }
-
-        public int UserId { get; set; }
-        public int BusId { get; set; }
-        public Invoice Invoice { get; set; }
     }
 }

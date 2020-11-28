@@ -30,7 +30,10 @@
             <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
               <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="bag">{{bagNum2}}</div>
+                <div class="bag">
+                  <span *ngIf="loading2">{{bagNum2}}</span>
+                  <span *ngIf="!loading2" class="spinner-border spinner-border-sm"></span>
+                </div>
                 <i class="fa fa-ticket" aria-hidden="true"></i>
               </a>
               <app-my-tickets (onBagNumber2)="bagNumber2($event)"></app-my-tickets>
@@ -40,7 +43,10 @@
             <li class="nav-item dropdown" [routerLinkActive]="['link-active']">
               <a class="nav-link text-dark dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <div class="bag">{{bagNum}}</div>
+                <div class="bag">
+                  <span *ngIf="loading">{{bagNum}}</span>
+                  <span *ngIf="!loading" class="spinner-border spinner-border-sm"></span>
+                </div>
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
               </a>
               <app-cart (onBagNumber)="bagNumber($event)"></app-cart>

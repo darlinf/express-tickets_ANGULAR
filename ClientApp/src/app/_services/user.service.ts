@@ -15,7 +15,11 @@ export class UserService {
         return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
     }
 
-  passwordRecovery(emailDestination){
+    checkMail(mail){
+        return this.http.get<any>(this.baseUrl+"users/CheckEmail/"+mail);
+    }
+
+    passwordRecovery(emailDestination){
       return this.http.post<any>(this.baseUrl + "users/PasswordRecovery",
         { EmailDestination: emailDestination, UrlToSend: this.baseUrl + "recuperarContrasena" });
     }

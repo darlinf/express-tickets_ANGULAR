@@ -107,7 +107,7 @@ export class BillingComponent implements OnInit {
         
         <tr class="item">
             <td style="padding: 5px;vertical-align: top;border-bottom: 1px solid #eee;">
-                Ticket 
+                Ticket codigo <b>#28665</b>
             </td>
             
             <td style="padding: 5px;vertical-align: top;text-align: right;border-bottom: 1px solid #eee;">
@@ -117,21 +117,21 @@ export class BillingComponent implements OnInit {
         
         <tr class="item">
             <td style="padding: 5px;vertical-align: top;border-bottom: 1px solid #eee;">
-                Ticket
+                Ticket codigo <b>#82623</b>
             </td>
             
             <td style="padding: 5px;vertical-align: top;text-align: right;border-bottom: 1px solid #eee;">
-                $75.00
+                $175.00
             </td>
         </tr>
         
         <tr class="item last">
             <td style="padding: 5px;vertical-align: top;border-bottom: none;">
-                Ticket
+                Ticket codigo <b>#58263</b>
             </td>
             
             <td style="padding: 5px;vertical-align: top;text-align: right;border-bottom: none;">
-                $10.00
+                $175.00
             </td>
         </tr>
         
@@ -139,7 +139,7 @@ export class BillingComponent implements OnInit {
             <td style="padding: 5px;vertical-align: top;"></td>
             
             <td style="padding: 5px;vertical-align: top;text-align: right;border-top: 2px solid #eee;font-weight: bold;">
-               Total: $385.00
+               Total: $650.00
             </td>
         </tr>
     </table>

@@ -34,7 +34,7 @@ namespace WebApi.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public IActionResult Register([FromBody]UserDto userDto)
+        public IActionResult Register([FromBody] UserDto userDto)
         {
             // map dto to entity
             var user = _mapper.Map<User>(userDto);
@@ -102,10 +102,25 @@ namespace WebApi.Controllers
             }
         }
 
+        [AllowAnonymous]
+        [HttpGet("CheckEmail/{Mail}")]
+        public IActionResult CheckEmail(string Mail)
+        {
+            try
+            {
+                _userService.CheckEmail(Mail);
+                return Ok();
+            }
+            catch (AppException ex)
+            {
+                return BadRequest(new { message = ex.Message });
+            }
+
+        }
 
         [AllowAnonymous]
         [HttpPost("authenticate")]
-        public IActionResult Authenticate([FromBody]AuthenticateModel model)
+        public IActionResult Authenticate([FromBody] AuthenticateModel model)
         {
             var user = _userService.Authenticate(model.Mail, model.Password);
 
@@ -127,7 +142,7 @@ namespace WebApi.Controllers
         [HttpGet]
         public IActionResult GetAll()
         {
-            var users =  _userService.GetAll();
+            var users = _userService.GetAll();
             return Ok(users);
         }
 
@@ -139,7 +154,7 @@ namespace WebApi.Controllers
             if (id != currentUserId && !User.IsInRole(Role.Admin))
                 return Forbid();
 
-            var user =  _userService.GetById(id);
+            var user = _userService.GetById(id);
 
             if (user == null)
                 return NotFound();

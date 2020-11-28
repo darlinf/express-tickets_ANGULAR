@@ -56,18 +56,23 @@ export class MyTicketsComponent implements OnInit {
     var elmnt = document.getElementById("content"+id);
     elmnt.scrollIntoView();
   }
-
+  loading = true
   ticket: any
   ticketForDelete: any
   showSwitch = false
 
 
   getTicketBy(x){
+    this.loading = false
     this.ticketService.getAllBy(x, this.currentUser.id).subscribe(x => {
       this.ticketsPending = x
       this.bagNumber = x.length
       this.onBagNumber2.emit(this.bagNumber);
-    }, e => console.log(e))
+      this.loading = true
+    }, e =>{
+      this.loading = true
+      console.log(e)
+    } )
   }
 
   bagNumber = 0

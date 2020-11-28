@@ -47,7 +47,10 @@
           <i class="fa fa-cc-visa" aria-hidden="true"></i>
           <span>&nbsp;&nbsp;•••• 7825</span>
         </label>
-        <button type="button" class="btn btn-success btn-lg" (click)="pay()" >Pagar</button>
+        <button [disabled]="loading" type="button" class="btn btn-success btn-lg" (click)="pay()" >
+          <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1 mb-1"></span>
+          Pagar
+        </button>
       </div>
     </div>
   </div>

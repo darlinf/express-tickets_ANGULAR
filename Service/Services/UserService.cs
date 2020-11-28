@@ -97,6 +97,11 @@ namespace WebApi.Services
             return user;
         }
 
+        public void CheckEmail(string Mail){
+            var user = _context.Users.FirstOrDefault(x => x.Mail == Mail);
+            if(user != null) throw new AppException("El correo esta en uso");
+        }
+
         public void Update(User userParam, string password = null)
         {
             var user = _context.Users.Find(userParam.Id);

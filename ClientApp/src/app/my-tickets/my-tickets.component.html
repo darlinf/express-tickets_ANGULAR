@@ -1,55 +1,58 @@
-    
-
     <div class="dropdown-menu dropdown-menu-right close-window">
 
-    <form action="" class="my-container"> 
+      <form action="" class="my-container">
 
-        <div class="confirm" [ngClass]="{'confirm-show': showSwitch}"> 
-			<div class="confirm-options">
-				<p>Seguro que deseas reembolsar este ticket: <b>#{{ticketForDelete}}</b></p>
-				<div>
-					<div role="button" (click)="refund()">Aceptar</div>
-					<div role="button" (click)="showSwitch = false">Cancelar</div>	
-				</div>
-			</div>
-        </div>	
-        
-    <div class=" myStyle-card-container">
-
-    <ng-container *ngFor="let ticket of ticketsPending; let showQR = false">
-        
-    <div class="myStyle-card" [id]="'content'+ticket.id">
-        <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p> 
-        <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
-        <div class="myStyle-icon" *ngIf="ticket.status != 'Refund' && ticket.status != 'Used'">
-            <div role="button" (click)="refundDecition(ticket)" >
-                <i class="fa fa-retweet"  aria-hidden="true"></i>
+        <div class="confirm" [ngClass]="{'confirm-show': showSwitch}">
+          <div class="confirm-options">
+            <p>Seguro que deseas reembolsar este ticket: <b>#{{ticketForDelete}}</b></p>
+            <div>
+              <div role="button" (click)="refund()">Aceptar</div>
+              <div role="button" (click)="showSwitch = false">Cancelar</div>
             </div>
-            <div role="button" (click)="showQR = !showQR; scrollViewQr(ticket.id)">
-                <i class="fa fa-qrcode" aria-hidden="true"></i>
-            </div>
+          </div>
         </div>
-        <qrcode class="bshadow" *ngIf="showQR" qrdata="{{ticket.code}}" [width]="1" [errorCorrectionLevel]="'M'"></qrcode>
-    </div>
-    </ng-container>
-    <ng-container *ngIf="ticketsPending">
-        <div class="noInformation" *ngIf="ticketsPending.length == 0">
-            No hay información por mostrar.
+
+        <div class=" myStyle-card-container">
+
+          <ng-container *ngIf="loading">
+            <ng-container *ngFor="let ticket of ticketsPending; let showQR = false">
+
+              <div class="myStyle-card" [id]="'content'+ticket.id">
+                <p>Desde: <b>{{ticket.from}}</b> Hasta: <b>{{ticket.place}}</b></p>
+                <p>Fecha: <b>{{ticket.date | date :'short'}}</b> Codigo: <b>#{{ticket.code}}</b></p>
+                <div class="myStyle-icon" *ngIf="ticket.status != 'Refund' && ticket.status != 'Used'">
+                  <div role="button" (click)="refundDecition(ticket)">
+                    <i class="fa fa-retweet" aria-hidden="true"></i>
+                  </div>
+                  <div role="button" (click)="showQR = !showQR; scrollViewQr(ticket.id)">
+                    <i class="fa fa-qrcode" aria-hidden="true"></i>
+                  </div>
+                </div>
+                <qrcode class="bshadow" *ngIf="showQR" qrdata="{{ticket.code}}" [width]="1"
+                  [errorCorrectionLevel]="'M'"></qrcode>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="ticketsPending">
+              <div class="noInformation" *ngIf="ticketsPending.length == 0">
+                No hay información por mostrar.
+              </div>
+            </ng-container>
+          </ng-container>
+          <ng-container>
+            <div class="noInformation" *ngIf="!ticketsPending || !loading">
+                <span class="spinner-border spinner-border-sm mr-1"></span>
+              </div>
+          </ng-container>
+
         </div>
-    </ng-container>
-    
+
+
+        <select [disabled]="!ticketsPending || !loading" (change)="getTicketBy($event.target.value)" class="custom-select mr-sm-2">
+          <option selected value="paid">Pagados</option>
+          <option value="refund">Reembolsados</option>
+          <option value="used">Usados</option>
+        </select>
+
+      </form>
+
     </div>
-
-    <select (change)="getTicketBy($event.target.value)" class="custom-select mr-sm-2">
-        <option selected value="paid">Pagados</option>
-        <option value="refund">Reembolsados</option>
-        <option value="used">Usados</option>
-      </select>
-    </form>
-
-    </div>
-  
-    
-
-
-

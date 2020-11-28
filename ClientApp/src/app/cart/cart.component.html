@@ -29,7 +29,9 @@
                 No hay información por mostrar.
             </div>
         </ng-container>
-    
+        <div class="noInformation" *ngIf="!ticketsPending">
+            <span class="spinner-border spinner-border-sm mr-1"></span>.
+        </div>
     </div>
 
     <ng-container *ngIf="ticketsPending">
