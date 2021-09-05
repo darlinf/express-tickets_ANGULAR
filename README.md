@@ -5,4 +5,12 @@ This application tries to solve the new problems posed by the current pandemic b
 
 
 ## Technology used
+  * bootstrap 
+  * core-js 
+  * jquery
+  * ngx-qrcode2 
+  * oidc-client 
+  * popper.js
+  * rxjs 
+  * zone.js
   
